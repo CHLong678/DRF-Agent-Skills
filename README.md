@@ -224,6 +224,30 @@ Use drf-bulk-large-data to redesign this million-row import/export so memory,
 transaction scope, chunk size, retries, and API limits remain bounded.
 ```
 
+## Repository validation
+
+The repository validates its own skill quality in CI:
+
+```bash
+python scripts/validate_skills.py
+bash -n scripts/install-codex.sh
+bash -n scripts/install-antigravity.sh
+bash scripts/test_installers.sh
+python -m compileall -q skills
+```
+
+Checks include:
+
+- every skill directory contains `SKILL.md`
+- frontmatter name matches the directory
+- descriptions contain a concrete `Use when ...` discovery trigger
+- local `references/` and `examples/` links exist
+- Python examples compile
+- installer shell syntax is valid
+- Codex and Antigravity installers copy the full skill directory, including references/examples
+
+See `SKILL_AUTHORING.md` before adding a new skill.
+
 ## Repository philosophy
 
 The skills should prefer the existing project's conventions unless they are clearly unsafe. They should not refactor unrelated code, invent abstractions prematurely, or turn DRF code into architecture for architecture's sake.

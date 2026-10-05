@@ -1,0 +1,36 @@
+name: Validate Agent Skills
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate skill structure and metadata
+        run: python scripts/validate_skills.py
+
+      - name: Check shell syntax
+        run: |
+          bash -n scripts/install-codex.sh
+          bash -n scripts/install-antigravity.sh
+          bash -n scripts/test_installers.sh
+
+      - name: Compile Python examples
+        run: python -m compileall -q skills
+
+      - name: Test installers
+        run: bash scripts/test_installers.sh
