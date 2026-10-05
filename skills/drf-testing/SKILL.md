@@ -1,0 +1,80 @@
+---
+name: drf-testing
+description: Django REST Framework testing guidance using pytest-django, DRF APIClient/APIRequestFactory, factories, database constraints, transaction tests, and API contract coverage. Use when writing or reviewing tests for DRF endpoints and services.
+---
+
+# DRF Testing
+
+## Test behavior, not framework internals
+
+Prioritize externally meaningful behavior and domain rules.
+
+Test:
+
+- successful path
+- validation failures
+- permissions/authentication
+- not-found/object scoping
+- partial updates
+- business conflicts
+- transaction rollback
+- side-effect scheduling
+- pagination/filter/order behavior where part of the API contract
+
+## API tests
+
+Use DRF test clients for endpoint behavior. Avoid mocking DRF itself.
+
+## Factories
+
+Use factories/builders to make test intent clear. Override only fields relevant to the scenario.
+
+Avoid giant fixtures shared across unrelated tests.
+
+## Database backend fidelity
+
+If production uses PostgreSQL, important tests for database-specific behavior should run on PostgreSQL.
+
+Do not assume SQLite reproduces:
+
+- row locking
+- `select_for_update()`
+- PostgreSQL constraints/indexes
+- JSON behavior
+- transaction semantics
+- query planner behavior
+
+SQLite may still be useful for lightweight unit-style tests when database-specific semantics are irrelevant.
+
+## Transaction tests
+
+Use transaction-aware tests when verifying:
+
+- `select_for_update()`
+- `transaction.on_commit()`
+- concurrent modifications
+- deadlock/retry behavior
+
+Be aware that test wrappers can hide transaction behavior if the wrong pytest/Django test mode is used.
+
+## Celery / async side effects
+
+Test that the application schedules work at the correct boundary. Do not require a live worker for every unit test.
+
+Where `on_commit()` is used, assert that dispatch does not occur on rollback and occurs after successful commit.
+
+## Query-performance tests
+
+For endpoints prone to N+1 regressions, use query-count assertions carefully. Keep thresholds meaningful and resilient to harmless framework changes.
+
+## Contract stability
+
+For public APIs, cover important response fields/status codes so accidental contract changes fail visibly.
+
+## Avoid
+
+- testing only happy paths
+- using SQLite to claim lock correctness
+- mocking the code under test so heavily that behavior is no longer exercised
+- brittle assertions on irrelevant full response bodies
+- sleeping to coordinate concurrency when deterministic synchronization is possible

@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MODE="${1:-}"
+
+case "$MODE" in
+  --project)
+    PROJECT="${2:-.}"
+    DEST="$(cd "$PROJECT" && pwd)/.agents/skills"
+    ;;
+  --global)
+    DEST="${ANTIGRAVITY_SKILLS_DIR:-$HOME/.gemini/config/skills}"
+    ;;
+  *)
+    echo "Usage: $0 --project <project-path> | --global" >&2
+    exit 2
+    ;;
+esac
+
+mkdir -p "$DEST"
+for skill in "$ROOT"/skills/drf-*; do
+  name="$(basename "$skill")"
+  rm -rf "$DEST/$name"
+  cp -R "$skill" "$DEST/$name"
+  echo "installed $name -> $DEST/$name"
+done
