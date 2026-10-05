@@ -26,6 +26,8 @@ The repository intentionally avoids generic frontend, non-Django, and unrelated 
 | `drf-caching` | Redis/application/HTTP caching, key design, invalidation, ETags, stampede prevention |
 | `drf-observability` | Profiling, structured logging, metrics, tracing, load testing, performance verification |
 | `drf-filtering-pagination` | django-filter, bounded ranges, multi-value filters, large-list pagination, two-phase hydration |
+| `drf-celery` | Task boundaries, `on_commit`, idempotency, retries, `acks_late`, queues, prefetch, chunking, monitoring |
+| `drf-bulk-large-data` | Large imports/exports, `iterator`, bulk create/update, streaming, chunking, memory-safe processing |
 
 ## Design principles
 
@@ -44,6 +46,8 @@ Key corrections include:
 - Do not convert views to async without checking the complete sync/async dependency path and ASGI deployment.
 - Do not force the newest OpenAPI version when the project's schema generator or clients do not support it correctly.
 - Do not add caching without defining isolation, invalidation, TTL, and stale-data behavior.
+- Treat Celery delivery as potentially duplicate: separate application retry from broker redelivery and require idempotency where delivery semantics need it.
+- Do not bulk-process huge datasets by materializing every row/object in memory; prefer bounded chunks, `iterator()`, set-based updates, streaming, or background jobs according to workload.
 
 ## Install for Codex
 
@@ -129,7 +133,9 @@ drf-async             ASGI/async endpoint work
 drf-caching           Redis/HTTP/application caching
 drf-observability     performance and production diagnostics
 drf-filtering-pagination   large/complex list endpoints and FilterSet work
-drf-testing           implementation or review of tests
+drf-celery           background jobs, retries, queues, worker/backlog behavior
+drf-bulk-large-data  imports, exports, bulk APIs, huge QuerySets, chunked processing
+drf-testing          implementation or review of tests
 ```
 
 ## Example prompts
@@ -158,6 +164,16 @@ Use drf-auth-security and drf-testing to check this endpoint for BOLA/IDOR,
 tenant isolation, mass assignment, and missing authorization tests.
 ```
 
+```text
+Use drf-celery to review this task for idempotency, retry/redelivery semantics,
+queue isolation, prefetch, timeouts, and dispatch-after-commit.
+```
+
+```text
+Use drf-bulk-large-data to redesign this million-row import/export so memory,
+transaction scope, chunk size, retries, and API limits remain bounded.
+```
+
 ## Repository philosophy
 
 The skills should prefer the existing project's conventions unless they are clearly unsafe. They should not refactor unrelated code, invent abstractions prematurely, or turn DRF code into architecture for architecture's sake.
@@ -174,6 +190,11 @@ Notable inspiration:
 - `davila7/claude-code-templates`
 - `prowler-cloud/prowler` (`skills/django-drf`)
 - `Jeffallan/claude-skills` (`skills/django-expert`)
+
+Authoritative references used for reliability-sensitive rules:
+
+- Django 5.2 documentation (`QuerySet`, transactions, `StreamingHttpResponse`)
+- Celery 5.7 documentation (tasks, retries, acknowledgements, optimization, routing, concurrency, Canvas, monitoring, security)
 
 ## License
 
