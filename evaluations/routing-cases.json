@@ -9,7 +9,10 @@
       "postgresql-for-django",
       "drf-orm-performance"
     ],
-    "rationale": "Unknown bottlenecks should be measured before selecting an optimization."
+    "rationale": "Unknown bottlenecks should be measured before selecting an optimization.",
+    "required_reasoning_tags": [
+      "measure-first"
+    ]
   },
   {
     "id": "serializer-n-plus-one",
@@ -21,7 +24,11 @@
     "forbidden_primary": [
       "postgresql-for-django"
     ],
-    "rationale": "The primary issue is ORM access shape/N+1; serializer design is secondary."
+    "rationale": "The primary issue is ORM access shape/N+1; serializer design is secondary.",
+    "required_reasoning_tags": [
+      "orm-access-shape",
+      "verify-after-change"
+    ]
   },
   {
     "id": "postgres-explain-index",
@@ -33,7 +40,11 @@
     "forbidden_primary": [
       "drf-caching"
     ],
-    "rationale": "Planner and index choice are PostgreSQL-specific."
+    "rationale": "Planner and index choice are PostgreSQL-specific.",
+    "required_reasoning_tags": [
+      "postgres-explain",
+      "verify-after-change"
+    ]
   },
   {
     "id": "object-permission-list",
@@ -45,7 +56,11 @@
     "forbidden_primary": [
       "drf-views"
     ],
-    "rationale": "List queryset scoping and object permissions are authorization concerns."
+    "rationale": "List queryset scoping and object permissions are authorization concerns.",
+    "required_reasoning_tags": [
+      "queryset-scoping",
+      "object-permission"
+    ]
   },
   {
     "id": "idor-security-review",
@@ -56,7 +71,10 @@
       "drf-testing"
     ],
     "forbidden_primary": [],
-    "rationale": "The requested outcome is a broader security review, not only permission implementation."
+    "rationale": "The requested outcome is a broader security review, not only permission implementation.",
+    "required_reasoning_tags": [
+      "queryset-scoping"
+    ]
   },
   {
     "id": "celery-backlog",
@@ -69,7 +87,11 @@
     "forbidden_primary": [
       "drf-background-jobs-contracts"
     ],
-    "rationale": "This is worker/broker behavior, not the public job API contract."
+    "rationale": "This is worker/broker behavior, not the public job API contract.",
+    "required_reasoning_tags": [
+      "worker-broker-diagnostics",
+      "measure-first"
+    ]
   },
   {
     "id": "202-job-api",
@@ -82,7 +104,10 @@
     "forbidden_primary": [
       "drf-async"
     ],
-    "rationale": "The primary problem is the public async-job contract."
+    "rationale": "The primary problem is the public async-job contract.",
+    "required_reasoning_tags": [
+      "background-job-contract"
+    ]
   },
   {
     "id": "async-http-fanout",
@@ -94,7 +119,10 @@
     "forbidden_primary": [
       "drf-celery"
     ],
-    "rationale": "The work remains request-critical concurrent I/O."
+    "rationale": "The work remains request-critical concurrent I/O.",
+    "required_reasoning_tags": [
+      "request-time-async"
+    ]
   },
   {
     "id": "million-row-export",
@@ -108,7 +136,10 @@
     "forbidden_primary": [
       "drf-serializers"
     ],
-    "rationale": "Execution model, memory bounds, and chunking are primary."
+    "rationale": "Execution model, memory bounds, and chunking are primary.",
+    "required_reasoning_tags": [
+      "bounded-memory"
+    ]
   },
   {
     "id": "race-lost-update",
@@ -121,7 +152,10 @@
     "forbidden_primary": [
       "drf-celery"
     ],
-    "rationale": "The invariant and write concurrency are the main decision."
+    "rationale": "The invariant and write concurrency are the main decision.",
+    "required_reasoning_tags": [
+      "transaction-boundary"
+    ]
   },
   {
     "id": "webhook-duplicates",
@@ -134,7 +168,11 @@
     "forbidden_primary": [
       "drf-background-jobs-contracts"
     ],
-    "rationale": "Webhook delivery semantics are primary."
+    "rationale": "Webhook delivery semantics are primary.",
+    "required_reasoning_tags": [
+      "webhook-deduplication",
+      "out-of-order-delivery"
+    ]
   },
   {
     "id": "production-index-migration",
@@ -146,7 +184,11 @@
     "forbidden_primary": [
       "drf-orm-performance"
     ],
-    "rationale": "The primary decision is production migration rollout; PostgreSQL behavior is secondary."
+    "rationale": "The primary decision is production migration rollout; PostgreSQL behavior is secondary.",
+    "required_reasoning_tags": [
+      "rolling-deploy-compatibility",
+      "concurrent-index"
+    ]
   },
   {
     "id": "slow-admin",
@@ -158,7 +200,10 @@
     "forbidden_primary": [
       "drf-views"
     ],
-    "rationale": "The failure is Django admin-specific."
+    "rationale": "The failure is Django admin-specific.",
+    "required_reasoning_tags": [
+      "measure-first"
+    ]
   },
   {
     "id": "schema-runtime-mismatch",
@@ -170,7 +215,10 @@
     "forbidden_primary": [
       "drf-views"
     ],
-    "rationale": "Runtime/schema parity is the primary contract issue."
+    "rationale": "Runtime/schema parity is the primary contract issue.",
+    "required_reasoning_tags": [
+      "openapi-runtime-parity"
+    ]
   },
   {
     "id": "startup-slow",
@@ -182,6 +230,10 @@
     "forbidden_primary": [
       "drf-observability"
     ],
-    "rationale": "The problem is import/setup time rather than request-time latency."
+    "rationale": "The problem is import/setup time rather than request-time latency.",
+    "required_reasoning_tags": [
+      "startup-import-path",
+      "measure-first"
+    ]
   }
 ]

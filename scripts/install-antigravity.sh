@@ -12,8 +12,11 @@ case "$MODE" in
   --global)
     DEST="${ANTIGRAVITY_SKILLS_DIR:-$HOME/.gemini/config/skills}"
     ;;
+  --cli-global)
+    DEST="${ANTIGRAVITY_CLI_SKILLS_DIR:-$HOME/.gemini/antigravity-cli/skills}"
+    ;;
   *)
-    echo "Usage: $0 --project <project-path> | --global" >&2
+    echo "Usage: $0 --project <project-path> | --global | --cli-global" >&2
     exit 2
     ;;
 esac

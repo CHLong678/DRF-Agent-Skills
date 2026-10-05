@@ -1,0 +1,28 @@
+{
+  "tags": [
+    "measure-first",
+    "queryset-scoping",
+    "object-permission",
+    "orm-access-shape",
+    "postgres-explain",
+    "database-constraint",
+    "conditional-update",
+    "row-lock",
+    "transaction-boundary",
+    "on-commit",
+    "idempotency",
+    "worker-broker-diagnostics",
+    "background-job-contract",
+    "request-time-async",
+    "bounded-memory",
+    "webhook-authenticity",
+    "webhook-deduplication",
+    "out-of-order-delivery",
+    "rolling-deploy-compatibility",
+    "concurrent-index",
+    "openapi-runtime-parity",
+    "startup-import-path",
+    "version-check",
+    "verify-after-change"
+  ]
+}

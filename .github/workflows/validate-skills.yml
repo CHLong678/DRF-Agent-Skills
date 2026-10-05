@@ -35,5 +35,11 @@ jobs:
       - name: Compile Python examples
         run: python -m compileall -q skills
 
+      - name: Compile validation and eval scripts
+        run: python -m py_compile scripts/*.py
+
+      - name: Dry-run model eval harness
+        run: python scripts/run_model_evals.py --provider codex --dry-run --limit 1 >/dev/null
+
       - name: Test installers
         run: bash scripts/test_installers.sh

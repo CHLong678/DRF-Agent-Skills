@@ -239,6 +239,30 @@ Use drf-bulk-large-data to redesign this million-row import/export so memory,
 transaction scope, chunk size, retries, and API limits remain bounded.
 ```
 
+## Model-based evaluations
+
+The repository can run the routing suite against real agent CLIs.
+
+Codex:
+
+```bash
+./scripts/install-codex.sh
+python scripts/run_model_evals.py --provider codex
+```
+
+Antigravity CLI:
+
+```bash
+./scripts/install-antigravity.sh --cli-global
+python scripts/run_model_evals.py --provider antigravity
+```
+
+The runner scores actual model output against `evaluations/routing-cases.json`: expected primary skill, forbidden primary choices, secondary-skill discipline, inspect-first behavior, verification, and required reasoning tags.
+
+It writes reports to `evaluations/results/<provider>/`. These runtime reports are intentionally not part of normal repository validation because they require authenticated model access and incur inference cost.
+
+See `evaluations/model/README.md` for usage.
+
 ## Evaluations and scenarios
 
 The repository includes machine-readable routing cases and production scenarios:

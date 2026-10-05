@@ -51,3 +51,11 @@ Evaluation assets:
 - `evaluations/routing-cases.json` defines expected primary/secondary routing behavior.
 - `scenarios/` contains real-world reasoning fixtures.
 - Changes to routing or skill scope should update these assets when behavior changes.
+
+
+Model-eval behavior:
+
+- `evaluations/model/` defines the structured response schema and reasoning-tag taxonomy.
+- `scripts/run_model_evals.py` runs real Codex/Antigravity CLI routing evaluations.
+- Do not optimize a skill solely to game one eval case; preserve the underlying routing invariant.
+- When changing routing semantics, update cases and required reasoning tags intentionally.

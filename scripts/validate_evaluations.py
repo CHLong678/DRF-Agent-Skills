@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS_DIR = ROOT / "skills"
 EVAL_FILE = ROOT / "evaluations" / "routing-cases.json"
 SCENARIOS_DIR = ROOT / "scenarios"
+TAXONOMY_FILE = ROOT / "evaluations" / "model" / "reasoning-taxonomy.json"
 
 SKILL_NAME_RE = re.compile(r"skills/([^/]+)/SKILL\.md$")
 
@@ -46,6 +47,7 @@ def validate_routing_cases(skills: set[str]) -> list[str]:
         "allowed_secondary",
         "forbidden_primary",
         "rationale",
+        "required_reasoning_tags",
     }
 
     for index, case in enumerate(cases):
@@ -97,6 +99,15 @@ def validate_routing_cases(skills: set[str]) -> list[str]:
         if overlap:
             errors.append(f"{label}: skill appears in both allowed_secondary and forbidden_primary: {sorted(overlap)}")
 
+        required_tags = case.get("required_reasoning_tags", [])
+        if not isinstance(required_tags, list):
+            errors.append(f"{label}: required_reasoning_tags must be a list")
+        else:
+            taxonomy = set(load_taxonomy())
+            unknown_tags = set(required_tags) - taxonomy
+            if unknown_tags:
+                errors.append(f"{label}: unknown reasoning tags: {sorted(unknown_tags)}")
+
     return errors
 
 
@@ -106,6 +117,13 @@ def extract_named_skills(text: str) -> set[str]:
         if match.startswith("drf-") or match.startswith("django-") or match == "postgresql-for-django":
             found.add(match)
     return found
+
+
+def load_taxonomy() -> list[str]:
+    if not TAXONOMY_FILE.is_file():
+        return []
+    data = json.loads(TAXONOMY_FILE.read_text(encoding="utf-8"))
+    return data.get("tags", [])
 
 
 def validate_scenarios(skills: set[str]) -> list[str]:

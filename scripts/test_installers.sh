@@ -9,8 +9,9 @@ trap 'rm -rf "$tmp"' EXIT
 
 CODEX_SKILLS_DIR="$tmp/codex" "$ROOT/scripts/install-codex.sh" >/dev/null
 ANTIGRAVITY_SKILLS_DIR="$tmp/antigravity" "$ROOT/scripts/install-antigravity.sh" --global >/dev/null
+ANTIGRAVITY_CLI_SKILLS_DIR="$tmp/antigravity-cli" "$ROOT/scripts/install-antigravity.sh" --cli-global >/dev/null
 
-for dest in "$tmp/codex" "$tmp/antigravity"; do
+for dest in "$tmp/codex" "$tmp/antigravity" "$tmp/antigravity-cli"; do
   actual="$(find "$dest" -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')"
   if [ "$actual" != "$EXPECTED" ]; then
     echo "Expected $EXPECTED installed skills in $dest, found $actual" >&2
