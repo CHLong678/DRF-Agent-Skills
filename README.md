@@ -25,6 +25,7 @@ The repository intentionally avoids generic frontend, non-Django, and unrelated 
 | `drf-async` | Async views, ASGI, sync/async boundaries, deciding between async and background jobs |
 | `drf-caching` | Redis/application/HTTP caching, key design, invalidation, ETags, stampede prevention |
 | `drf-observability` | Profiling, structured logging, metrics, tracing, load testing, performance verification |
+| `drf-filtering-pagination` | django-filter, bounded ranges, multi-value filters, large-list pagination, two-phase hydration |
 
 ## Design principles
 
@@ -127,6 +128,7 @@ drf-api-contracts     public/versioned APIs
 drf-async             ASGI/async endpoint work
 drf-caching           Redis/HTTP/application caching
 drf-observability     performance and production diagnostics
+drf-filtering-pagination   large/complex list endpoints and FilterSet work
 drf-testing           implementation or review of tests
 ```
 
@@ -170,6 +172,8 @@ Notable inspiration:
 
 - `affaan-m/ECC`
 - `davila7/claude-code-templates`
+- `prowler-cloud/prowler` (`skills/django-drf`)
+- `Jeffallan/claude-skills` (`skills/django-expert`)
 
 ## License
 

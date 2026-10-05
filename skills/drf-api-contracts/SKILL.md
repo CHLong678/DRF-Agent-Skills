@@ -1,140 +1,80 @@
 ---
 name: drf-api-contracts
-description: Django REST Framework API contract, versioning, deprecation, pagination, idempotency, error-shape, and OpenAPI guidance. Use when designing public/internal API contracts, evolving endpoints, adding versions, documenting schemas, or preventing breaking changes.
+description: Django REST Framework API contract, versioning, deprecation, pagination, idempotency, error-shape, schema-generation, and OpenAPI guidance. Use when designing public/internal API contracts, evolving endpoints, adding versions, documenting schemas, or preventing breaking changes.
 ---
 
 # DRF API Contracts
 
 ## Discover the existing contract first
 
-Before changing an endpoint, inspect:
-
-- URL/versioning conventions
-- request and response serializers
-- status codes
-- pagination shape
-- filtering and ordering
-- error format
-- authentication/permission behavior
-- generated OpenAPI schema if present
+Before changing an endpoint, inspect URL/versioning conventions, request/response serializers, status codes, pagination, filtering/ordering, error format, auth behavior, and generated schema.
 
 Treat these as part of the API contract even when they are not formally documented.
 
 ## Versioning
 
-Do not version automatically.
+Do not version automatically. Consider versioning when independently deployed clients cannot migrate atomically, breaking changes are unavoidable, or multiple client generations must coexist.
 
-Consider versioning when:
+Common strategies include URI, media-type/header, and host/subdomain versioning.
 
-- public or independently deployed clients cannot migrate atomically
-- breaking response/request changes are unavoidable
-- multiple client generations must coexist
-
-Common strategies:
-
-- URI: `/api/v1/orders/`
-- media type / header versioning
-- host/subdomain versioning
-
-For internal APIs with coordinated deployments, careful backward-compatible evolution may be simpler than adding versions.
-
-Use DRF's versioning facilities consistently if the project already uses them.
+For internal APIs with coordinated deployments, backward-compatible evolution may be simpler than adding versions.
 
 ## Breaking changes
 
-Potential breaking changes include:
-
-- removing or renaming fields
-- changing field type or nullability
-- changing enum/status values
-- changing default ordering
-- changing pagination shape
-- making optional input required
-- changing error/status semantics
-- tightening permissions in a way clients do not expect
+Potential breaking changes include removing/renaming fields, changing field type/nullability, enum values, default ordering, pagination shape, optional-to-required input, error/status semantics, or permission behavior.
 
 Prefer additive evolution where possible.
 
 ## Deprecation lifecycle
 
-For externally consumed APIs:
-
-1. announce deprecation
-2. document the replacement
-3. provide migration guidance
-4. define a sunset date when appropriate
-5. observe remaining traffic before removal
-
-Do not delete an old endpoint merely because the new version exists.
+For externally consumed APIs: announce deprecation, document replacement, provide migration guidance, define a sunset date when appropriate, and observe remaining traffic before removal.
 
 ## Error contract
 
-Keep error responses consistent across endpoints.
-
-For APIs that benefit from a standardized error envelope, RFC 9457 Problem Details is a good option, but do not introduce it if the project already has a stable incompatible contract without a migration plan.
-
-Useful fields include:
-
-- machine-readable code
-- human-readable detail
-- HTTP status
-- per-field validation details
-- correlation/request identifier when appropriate
-
-Never expose internal exceptions or secrets.
+Keep error responses consistent. RFC 9457 Problem Details can be useful, but do not introduce it over a stable existing contract without a migration plan.
 
 ## Pagination
 
-Use bounded pagination for collections.
-
-Prefer cursor/keyset-style pagination when:
-
-- datasets are large
-- deep offsets are expensive
-- stable ordering can be guaranteed
-
-Cursor pagination requires deterministic ordering, usually including a unique tiebreaker.
-
-Offset pagination remains reasonable for smaller/admin-style datasets.
+Use bounded pagination. Prefer cursor/keyset pagination for large/changing datasets when deterministic ordering is available. For expensive list endpoints, see `drf-filtering-pagination`.
 
 ## Idempotency
 
-For create/action endpoints that clients may retry, evaluate idempotency.
-
-Examples:
-
-- payment/order creation
-- webhook ingestion
-- bulk actions
-- externally retried POST requests
-
-Use a durable idempotency/business key when duplicate execution would be harmful.
+For create/action endpoints that clients may retry, evaluate durable idempotency/business keys when duplicate execution would be harmful.
 
 ## Rate limits
 
-For rate-limited APIs:
-
-- return 429 when appropriate
-- provide `Retry-After` where useful
-- document rate-limit scope and behavior
-
-Do not assume DRF throttling alone provides infrastructure-level DoS protection.
+Return 429 when appropriate, provide `Retry-After` where useful, and document scope/behavior. DRF throttling is not complete infrastructure-level DoS protection.
 
 ## OpenAPI/schema
 
-Keep the generated schema aligned with real runtime behavior.
+Keep generated schema aligned with runtime request/response schemas, authentication, pagination, errors, enums, nullable/required fields, custom actions, and computed fields.
 
-Check:
+Use the OpenAPI version correctly supported by the project's schema generator and clients.
 
-- request/response schemas
-- authentication requirements
-- pagination
-- error responses
-- enum values
-- nullable/required fields
-- custom actions
+## Schema-generation safety
 
-Use the OpenAPI version supported correctly by the project's schema generator and client tooling. Do not force the newest specification version solely because it exists.
+Schema generators may instantiate views without normal runtime request context.
+
+If `get_queryset()`, serializer selection, permissions, or filters depend on request-specific attributes:
+
+- understand how the installed schema generator invokes the view
+- avoid executing tenant/user-sensitive real queries during schema generation
+- return a safe `.none()` queryset or provide explicit schema hints when appropriate
+- use generator-specific guards only when that generator actually defines them
+
+Some drf-spectacular/drf-yasg integrations expose schema-introspection flags such as `swagger_fake_view`. Treat that as tooling-specific behavior, not universal DRF behavior.
+
+Do not hide genuine runtime bugs behind a schema-only branch.
+
+## Computed fields
+
+When a computed serializer field cannot be inferred correctly, annotate its schema explicitly using the project's schema tooling.
+
+The schema should describe the runtime value, not merely silence generator warnings.
+
+## Custom actions
+
+Document custom `@action` endpoints explicitly when inference is insufficient: request serializer, response serializer, status codes, permissions/authentication, and path/query parameters.
 
 ## Verification
 
