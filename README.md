@@ -9,6 +9,18 @@ Designed specifically for:
 
 The repository intentionally avoids generic frontend, non-Django, and unrelated framework guidance. Each skill is narrow enough to load only when relevant.
 
+## Compatibility
+
+Baseline target:
+
+- Django >= 3.2
+- Celery >= 5.0 when Celery is used
+- a Django REST Framework version that officially supports the installed Django version
+
+Agents must inspect the project's actual Django, DRF, Celery, Python, database, and third-party package versions before using version-sensitive APIs. If versions are unknown, skills should fall back to Django 3.2 / Celery 5.0-compatible patterns.
+
+See [`COMPATIBILITY.md`](COMPATIBILITY.md) for explicit version gates and fallbacks.
+
 ## Skills
 
 | Skill | Purpose |
@@ -193,8 +205,11 @@ Notable inspiration:
 
 Authoritative references used for reliability-sensitive rules:
 
-- Django 5.2 documentation (`QuerySet`, transactions, `StreamingHttpResponse`)
-- Celery 5.7 documentation (tasks, retries, acknowledgements, optimization, routing, concurrency, Canvas, monitoring, security)
+- Django 3.2 documentation as the compatibility baseline
+- Django 4.1 release notes for async ORM / `iterator()` + prefetch version gates
+- Django 4.2 release notes for async `StreamingHttpResponse` version gates
+- Celery 5.0 documentation as the compatibility baseline
+- newer Celery documentation only when a feature is explicitly version-gated
 
 ## License
 
