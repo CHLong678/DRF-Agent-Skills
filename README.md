@@ -43,6 +43,11 @@ See [`COMPATIBILITY.md`](COMPATIBILITY.md) for explicit version gates and fallba
 | `django-startup-performance` | `django.setup()`/worker startup, import graphs, `AppConfig.ready()`, lazy-load tradeoffs |
 | `django-admin-large-data` | Large-table Django admin counts, N+1, relation widgets, search/filter performance |
 | `django-architecture-enforcement` | CI/static enforcement for tenant scope, import boundaries, architecture/security invariants |
+| `django-migrations-production` | Low/zero-downtime schema changes, backfills, concurrent indexes, migration safety |
+| `postgresql-for-django` | EXPLAIN, indexes, locks/deadlocks, PostgreSQL-specific Django performance |
+| `drf-webhooks-integrations` | Signature verification, duplicate/retry/out-of-order webhook handling, idempotent processing |
+| `drf-background-jobs-contracts` | 202 Accepted, durable job resources, progress/cancellation/result contracts |
+| `drf-permissions-authorization` | Deep list/object/create/custom-action authorization and permission design |
 
 ## Skill directory layout
 
@@ -80,6 +85,10 @@ Key corrections include:
 - Use stable machine-readable API error codes when clients need to branch on failure type; do not make them parse human text.
 - For expensive APIs, consider cost-aware budgets/quotas instead of relying only on requests-per-minute throttling.
 - When tenant isolation or architecture boundaries are critical, prefer CI/static enforcement over prose-only conventions.
+- Production migrations should be reviewed for lock duration, rolling-deploy compatibility, backfill cost, and rollback/retry behavior.
+- PostgreSQL-specific optimizations must be justified with real query plans and workload evidence.
+- Webhook endpoints must assume duplicate, retry, and out-of-order delivery and verify provider authenticity before processing.
+- Long-running APIs should expose a stable job contract instead of leaking Celery implementation details.
 - Do not bulk-process huge datasets by materializing every row/object in memory; prefer bounded chunks, `iterator()`, set-based updates, streaming, or background jobs according to workload.
 
 ## Install for Codex
@@ -171,6 +180,11 @@ drf-bulk-large-data  imports, exports, bulk APIs, huge QuerySets, chunked proces
 django-startup-performance  slow Django/Celery/manage.py startup and import graphs
 django-admin-large-data     admin changelist/form performance on large tables
 django-architecture-enforcement  enforce critical boundaries/invariants in CI
+django-migrations-production     production schema/data migration work
+postgresql-for-django             PostgreSQL plans, indexes, locks and DB-specific tuning
+drf-webhooks-integrations        third-party webhook/integration endpoints
+drf-background-jobs-contracts    202/job-status/result/cancellation API design
+drf-permissions-authorization    complex authorization and object/list/create permissions
 drf-testing          implementation or review of tests
 ```
 
@@ -235,6 +249,10 @@ Authoritative references used for reliability-sensitive rules:
 - Django 4.2 release notes for async `StreamingHttpResponse` version gates
 - Celery 5.0 documentation as the compatibility baseline
 - newer Celery documentation only when a feature is explicitly version-gated
+- PostgreSQL official documentation for query plans, indexes, locks, and concurrent index behavior
+- DRF official permissions documentation
+- RFC 9110 for HTTP 202 semantics
+- Stripe webhook documentation as a concrete production reference for signature verification, retries, duplicates, and ordering
 
 ## License
 
