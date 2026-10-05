@@ -12,6 +12,13 @@ SKILLS_DIR = ROOT / "skills"
 
 FRONTMATTER_RE = re.compile(r"\A---\n(?P<body>.*?)\n---\n", re.DOTALL)
 LOCAL_REF_RE = re.compile(r"`((?:references|examples)/[^`]+)`")
+ROUTING_SECTIONS = (
+    "## Routing contract",
+    "### Use this skill when",
+    "### Do not use this skill when",
+    "### Inspect first",
+    "### Related skills",
+)
 
 
 def parse_frontmatter(text: str, path: Path) -> dict[str, str]:
