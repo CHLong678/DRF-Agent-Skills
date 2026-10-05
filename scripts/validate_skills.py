@@ -63,6 +63,10 @@ def validate_skill(skill_dir: Path) -> list[str]:
     if "Use when" not in description:
         errors.append(f"{skill_file}: description should include a 'Use when ...' trigger clause")
 
+    for section in ROUTING_SECTIONS:
+        if section not in text:
+            errors.append(f"{skill_file}: missing required routing section: {section}")
+
     for relative in LOCAL_REF_RE.findall(text):
         target = skill_dir / relative
         if not target.exists():

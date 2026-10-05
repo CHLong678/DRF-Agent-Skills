@@ -139,3 +139,23 @@ Cover valid filters, invalid values, multi-value filters, max-range boundaries, 
 Load `references/large-count-pagination.md` when exact `COUNT(*)` becomes a measurable bottleneck.
 
 Exact total counts are part of the API contract, not an automatic requirement. Consider cursor pagination, `has_more`, or capped counts only when client semantics allow it.
+
+## Routing contract
+
+### Use this skill when
+- FilterSet design, filter validation, ordering, pagination, cursor/keyset, count cost, or list-query boundaries are primary
+
+### Do not use this skill when
+- the main issue is general ORM N+1/query composition; use `drf-orm-performance`
+- the main issue is PostgreSQL index/EXPLAIN analysis; use `postgresql-for-django`
+
+### Inspect first
+- current query parameters
+- ordering and uniqueness
+- pagination class
+- authorization scope
+- generated SQL/count query
+- client contract
+
+### Related skills
+- `drf-orm-performance`, `postgresql-for-django`, `drf-api-contracts`

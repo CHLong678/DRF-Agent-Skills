@@ -45,6 +45,28 @@ If a recommendation requires a newer version:
 2. provide a baseline-compatible fallback where practical
 3. tell the agent to inspect the project's installed versions first
 
+## Routing contract
+
+Every `SKILL.md` must include:
+
+```markdown
+## Routing contract
+
+### Use this skill when
+...
+
+### Do not use this skill when
+...
+
+### Inspect first
+...
+
+### Related skills
+...
+```
+
+The purpose is to reduce overlap between skills. Write explicit negative routing rules for the most likely neighboring skills.
+
 ## SKILL.md content
 
 Prefer:

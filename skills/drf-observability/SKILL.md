@@ -104,3 +104,22 @@ Check:
 - slow-query visibility
 - alertable SLO/SLA signals
 - dependency failure visibility
+
+## Routing contract
+
+### Use this skill when
+- the bottleneck/failure source is unknown or you need profiling, logs, metrics, tracing, load tests, or operational verification
+
+### Do not use this skill when
+- a specific root cause is already established and a dedicated skill owns the fix
+
+### Inspect first
+- latency distribution
+- request/error rate
+- DB/external/cache timings
+- query count
+- worker/queue saturation
+- existing logs/metrics/traces
+
+### Related skills
+- route to `drf-orm-performance`, `postgresql-for-django`, `drf-caching`, or `drf-celery` after evidence

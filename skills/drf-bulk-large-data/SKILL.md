@@ -133,3 +133,23 @@ Track rows processed, rows/sec, chunk duration, DB time, memory where available,
 - Django 3.2 StreamingHttpResponse: https://docs.djangoproject.com/en/3.2/ref/request-response/
 - Django 4.1 release notes for iterator/prefetch behavior: https://docs.djangoproject.com/en/4.1/releases/4.1/
 - Django 4.2 release notes for async streaming: https://docs.djangoproject.com/en/4.2/releases/4.2/
+
+## Routing contract
+
+### Use this skill when
+- large imports/exports, huge QuerySets, bulk create/update, chunking, streaming, memory bounds, or sync-vs-background execution is primary
+
+### Do not use this skill when
+- the problem is only Celery queue tuning; use `drf-celery`
+- the issue is specifically PostgreSQL planner/index/lock behavior; use `postgresql-for-django`
+
+### Inspect first
+- expected row/item count
+- request/response/file size
+- memory/latency budget
+- transaction semantics
+- partial-success contract
+- current query shape
+
+### Related skills
+- `drf-celery`, `drf-background-jobs-contracts`, `postgresql-for-django`

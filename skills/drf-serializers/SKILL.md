@@ -118,3 +118,24 @@ Load these only when relevant:
 - `examples/typed_fields.py` — Django 3.2+/DRF-compatible serializer examples.
 
 When OpenAPI or generated clients are involved, treat serializer metadata as part of the public contract.
+
+## Routing contract
+
+### Use this skill when
+- designing serializer fields, validation, representation, create/update, nested or computed fields
+- serializer behavior affects API schema or query access
+
+### Do not use this skill when
+- the main problem is queryset/N+1 optimization; use `drf-orm-performance`
+- the main problem is API versioning/backward compatibility; use `drf-api-contracts`
+- authorization is the main decision; use `drf-permissions-authorization`
+
+### Inspect first
+- target serializer and model
+- calling view/viewset
+- related serializers/services
+- model constraints
+- generated schema/tests when applicable
+
+### Related skills
+- `drf-api-contracts`, `drf-orm-performance`, `drf-permissions-authorization`

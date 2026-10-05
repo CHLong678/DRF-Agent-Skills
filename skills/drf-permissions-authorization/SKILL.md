@@ -98,3 +98,23 @@ Test at least:
 
 DRF permissions documentation:
 https://www.django-rest-framework.org/api-guide/permissions/
+
+## Routing contract
+
+### Use this skill when
+- permission classes, object permissions, list scoping, create authorization, custom actions, nested resources, or role/capability rules are primary
+
+### Do not use this skill when
+- the main task is broader API security/BOLA/tenant design; use `drf-auth-security`
+- the question is authentication/token configuration
+
+### Inspect first
+- endpoint action and HTTP method
+- queryset scoping
+- object retrieval path
+- permission classes
+- create/update writable fields
+- role/capability model and tests
+
+### Related skills
+- `drf-auth-security`, `drf-views`, `drf-testing`

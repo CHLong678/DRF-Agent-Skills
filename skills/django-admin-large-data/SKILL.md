@@ -83,3 +83,22 @@ Do not loop over millions of rows with `save()` in a request.
 ## References
 
 Read `references/changelist-performance.md` for a diagnostic flow.
+
+## Routing contract
+
+### Use this skill when
+- Django admin changelist/forms/actions are slow or fail on large tables
+
+### Do not use this skill when
+- the same problem exists in a normal DRF endpoint; use the relevant DRF performance skill
+
+### Inspect first
+- admin queryset/query count
+- count query
+- list_display relation access
+- search/list filters
+- FK/M2M widgets
+- __str__ cost
+
+### Related skills
+- `postgresql-for-django`, `drf-bulk-large-data`

@@ -85,3 +85,22 @@ When changing a public contract, update tests and documentation together.
 Load `references/openapi-runtime-parity.md` when custom actions, schema overrides, query-parameter serializers, generated clients, or response typing are involved.
 
 A schema annotation must describe runtime behavior faithfully; never make generated clients narrower than the actual endpoint by accident.
+
+## Routing contract
+
+### Use this skill when
+- backward compatibility, versioning, deprecation, OpenAPI/runtime parity, error shape, idempotency contract, or public API evolution is primary
+
+### Do not use this skill when
+- field validation/representation is the primary problem; use `drf-serializers`
+- 202/job status/cancellation is the main contract; use `drf-background-jobs-contracts`
+
+### Inspect first
+- current request/response serializers
+- generated schema
+- status/error/pagination conventions
+- existing clients/versioning
+- custom actions and compatibility tests
+
+### Related skills
+- `drf-serializers`, `drf-background-jobs-contracts`, `drf-filtering-pagination`

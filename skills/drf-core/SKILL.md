@@ -107,3 +107,23 @@ For non-trivial endpoint changes, verify:
 - error responses
 - backward compatibility
 - tests for changed behavior
+
+## Routing contract
+
+### Use this skill when
+- deciding DRF architecture/boundaries before a more specific domain is known
+- deciding whether logic belongs in views, serializers, services, or domain functions
+- reviewing broad request-to-domain orchestration
+
+### Do not use this skill when
+- the problem is specifically ORM performance, permissions, Celery, migrations, caching, or another dedicated domain
+- the task is only a PR/diff review; use `drf-code-review`
+
+### Inspect first
+- nearby views/serializers/models/services
+- project conventions and tests
+- transaction and side-effect boundaries
+
+### Related skills
+- `drf-views`, `drf-serializers`, `drf-transactions-concurrency`
+- use the most specific related skill as primary once the problem is classified

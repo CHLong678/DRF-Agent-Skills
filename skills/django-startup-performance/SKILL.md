@@ -99,3 +99,21 @@ After import refactors verify:
 ## References
 
 Read `references/import-path-checklist.md` for an audit checklist and safe refactoring workflow.
+
+## Routing contract
+
+### Use this skill when
+- django.setup(), manage.py, tests, web worker, or Celery worker startup is slow because of import paths/registration
+
+### Do not use this skill when
+- runtime request latency is the problem; start with `drf-observability`
+
+### Inspect first
+- startup timing/import profile
+- AppConfig.ready()
+- model/signal/package imports
+- router aggregation
+- management/Celery import paths
+
+### Related skills
+- `django-architecture-enforcement`, `drf-observability`

@@ -96,3 +96,23 @@ Use:
 - Django 3.2 migrations: https://docs.djangoproject.com/en/3.2/topics/migrations/
 - Django 3.2 migration operations: https://docs.djangoproject.com/en/3.2/ref/migration-operations/
 - Django PostgreSQL migration operations: https://docs.djangoproject.com/en/3.2/ref/contrib/postgres/operations/
+
+## Routing contract
+
+### Use this skill when
+- planning production schema/data migrations, backfills, constraints, concurrent indexes, or rolling-deploy compatibility
+
+### Do not use this skill when
+- the task is ordinary model design with no deployment/migration risk
+- the main issue is runtime query tuning; use `postgresql-for-django`
+
+### Inspect first
+- generated SQL
+- table size/write rate
+- DB engine/version
+- migration atomicity
+- application rollout order
+- backfill/rollback plan
+
+### Related skills
+- `postgresql-for-django`, `drf-bulk-large-data`

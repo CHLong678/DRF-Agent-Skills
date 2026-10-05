@@ -116,3 +116,22 @@ For meaningful optimization, compare:
 - memory behavior
 
 Do not claim an optimization without evidence when evidence is practical to obtain.
+
+## Routing contract
+
+### Use this skill when
+- query count, N+1, select/prefetch, annotations, subqueries, bulk ORM access, or serializer-driven queries are the main issue
+
+### Do not use this skill when
+- the task is primarily PostgreSQL EXPLAIN/index/lock analysis; use `postgresql-for-django`
+- the bottleneck is unknown; start with `drf-observability`
+- pagination/filter/count semantics dominate; use `drf-filtering-pagination`
+
+### Inspect first
+- actual queryset and serializer access pattern
+- query count and SQL
+- relation cardinality
+- existing indexes/constraints only after query shape is understood
+
+### Related skills
+- `postgresql-for-django`, `drf-serializers`, `drf-filtering-pagination`

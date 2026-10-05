@@ -106,3 +106,21 @@ Summarize:
 - missing tests
 
 If no meaningful issues are found, say so rather than inventing findings.
+
+## Routing contract
+
+### Use this skill when
+- reviewing a PR, diff, refactor, endpoint change, or bug-risk change across DRF concerns
+
+### Do not use this skill when
+- implementing one known domain behavior from scratch; use that domain skill directly
+
+### Inspect first
+- changed files and surrounding code
+- public contract changes
+- permissions/scoping
+- query/transaction behavior
+- tests and migration impact
+
+### Related skills
+- load only the domain skills required by concrete findings

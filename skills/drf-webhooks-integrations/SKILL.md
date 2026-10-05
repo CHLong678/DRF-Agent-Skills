@@ -82,3 +82,22 @@ Understand the provider's retry semantics before choosing status codes.
 
 Stripe webhook documentation is used as a concrete production reference for duplicate delivery, retry, ordering, raw-body signature verification, and replay protection:
 https://docs.stripe.com/webhooks
+
+## Routing contract
+
+### Use this skill when
+- receiving provider webhooks, verifying signatures, handling duplicate/out-of-order delivery, or dispatching webhook work
+
+### Do not use this skill when
+- the task is a generic outbound HTTP integration with no webhook semantics
+- the main issue is worker tuning after webhook dispatch; use `drf-celery`
+
+### Inspect first
+- provider signature/retry/order docs
+- raw-body handling
+- event ID/dedup storage
+- transaction/on_commit boundary
+- response timeout expectations
+
+### Related skills
+- `drf-celery`, `drf-transactions-concurrency`, `drf-auth-security`

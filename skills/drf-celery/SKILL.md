@@ -147,3 +147,25 @@ Validate request, create durable job record if needed, commit, enqueue with `on_
 - `examples/tenant_task.py` — baseline-compatible dispatch-after-commit and scoped task example.
 
 Request-local authorization context does not survive broker dispatch automatically.
+
+## Routing contract
+
+### Use this skill when
+- task retry, acknowledgements, queues, routing, prefetch, worker concurrency, backlog, task idempotency, or broker behavior is primary
+
+### Do not use this skill when
+- the main decision is public HTTP 202/job status/progress; use `drf-background-jobs-contracts`
+- work remains request-time async I/O; use `drf-async`
+- the main issue is deciding how to process huge data before choosing worker architecture; start with `drf-bulk-large-data`
+
+### Inspect first
+- task definition and caller
+- transaction/on_commit boundary
+- queue/routing
+- retry/ack settings
+- worker command/concurrency/prefetch
+- broker/result backend
+- idempotency invariant
+
+### Related skills
+- `drf-background-jobs-contracts`, `drf-transactions-concurrency`, `drf-bulk-large-data`

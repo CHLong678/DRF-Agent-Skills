@@ -109,3 +109,23 @@ Check:
 - uniqueness enforced only in Python
 - external I/O inside transactions
 - transaction duration
+
+## Routing contract
+
+### Use this skill when
+- race conditions, atomicity, row locking, idempotency, conditional updates, or commit-dependent side effects are central
+
+### Do not use this skill when
+- the question is primarily PostgreSQL lock diagnostics; use `postgresql-for-django`
+- the question is task retry/ack/queue behavior; use `drf-celery`
+- the task is a schema/data migration rollout; use `django-migrations-production`
+
+### Inspect first
+- invariant being protected
+- current read/write sequence
+- DB constraints
+- transaction boundary
+- external/Celery side effects
+
+### Related skills
+- `postgresql-for-django`, `drf-celery`, `django-migrations-production`

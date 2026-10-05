@@ -83,3 +83,23 @@ Status/result endpoints must enforce the same tenant/ownership permissions as th
 
 - RFC 9110 HTTP 202: https://www.rfc-editor.org/rfc/rfc9110.html#name-202-accepted
 - Celery 5.0 task/retry semantics: https://docs.celeryq.dev/en/v5.0.5/userguide/tasks.html
+
+## Routing contract
+
+### Use this skill when
+- designing 202 Accepted, durable job resources, progress, cancellation, retries as public state, result delivery, or job retention
+
+### Do not use this skill when
+- the main issue is Celery worker/broker configuration; use `drf-celery`
+- the work finishes synchronously
+
+### Inspect first
+- client workflow
+- creation endpoint semantics
+- durable job model/state
+- retry/cancel semantics
+- result size/retention
+- tenant/ownership rules
+
+### Related skills
+- `drf-celery`, `drf-api-contracts`, `drf-permissions-authorization`

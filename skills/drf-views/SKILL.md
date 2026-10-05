@@ -97,3 +97,24 @@ For list endpoints with potentially large datasets:
 - manually reimplementing mixin behavior without need
 - queries inside loops
 - swallowing exceptions and returning 200 with error strings
+
+## Routing contract
+
+### Use this skill when
+- choosing APIView/generic view/ViewSet/action structure
+- reasoning about DRF view lifecycle and hooks
+- implementing HTTP orchestration around serializers/querysets/services
+
+### Do not use this skill when
+- serializer design is the primary problem
+- permission/security behavior is the primary problem
+- business workflow/transaction design is the primary problem
+
+### Inspect first
+- URL/router registration
+- target view/viewset base classes
+- serializer/queryset/permission hooks
+- nearby actions and tests
+
+### Related skills
+- `drf-core`, `drf-serializers`, `drf-permissions-authorization`

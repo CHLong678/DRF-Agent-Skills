@@ -104,3 +104,23 @@ Validate:
 - stale-response behavior
 
 Do not keep a cache solely because it exists.
+
+## Routing contract
+
+### Use this skill when
+- Redis/application/HTTP caching, cache keys, TTL, invalidation, ETag, or stampede behavior is primary
+
+### Do not use this skill when
+- the bottleneck is not yet identified; start with `drf-observability`
+- the main issue is tenant authorization rather than cache behavior
+
+### Inspect first
+- exact data being cached
+- caller/tenant/permission dimensions
+- invalidation trigger
+- freshness tolerance
+- transaction boundary
+- observed hit/miss behavior
+
+### Related skills
+- `drf-observability`, `drf-auth-security`, `drf-transactions-concurrency`

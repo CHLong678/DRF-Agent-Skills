@@ -21,10 +21,25 @@ Agents must inspect the project's actual Django, DRF, Celery, Python, database, 
 
 See [`COMPATIBILITY.md`](COMPATIBILITY.md) for explicit version gates and fallbacks.
 
+## Skill routing
+
+When more than one skill appears relevant, start with `ROUTING.md` or the `drf-skill-router` skill.
+
+Routing rules:
+
+- choose one primary skill for the main decision
+- load secondary skills only for real cross-boundary concerns
+- prefer the most specific skill over broad/core/review skills
+- if the bottleneck is unknown, start with a diagnostic skill such as `drf-observability`
+- stop loading adjacent skills once correctness can be decided safely
+
+Decision playbooks live under `playbooks/` for common production problems such as slow APIs, race conditions, Celery backlog, large datasets, permission leaks, and production migrations.
+
 ## Skills
 
 | Skill | Purpose |
 |---|---|
+| `drf-skill-router` | Route ambiguous/cross-cutting tasks to the smallest correct set of skills |
 | `drf-core` | Architecture, API boundaries, service-layer guidance, response/error conventions |
 | `drf-serializers` | Serializer design, validation, nested data, read/write separation |
 | `drf-views` | APIView, GenericAPIView, mixins, generic views, ViewSets, actions, lifecycle |

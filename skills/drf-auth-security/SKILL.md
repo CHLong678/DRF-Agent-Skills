@@ -162,3 +162,22 @@ Check:
 Load `references/multi-tenant-scoping.md` for organization/account/workspace/project scoped systems.
 
 For high-risk multi-tenant applications, consider fail-closed data-access mechanisms as defense in depth, but keep explicit API authorization as the primary security boundary.
+
+## Routing contract
+
+### Use this skill when
+- BOLA/IDOR, tenant isolation, authentication/token safety, mass assignment, abuse, CSRF/CORS, SSRF, or security review is primary
+
+### Do not use this skill when
+- the main task is implementing permission classes/list-detail-create authorization; use `drf-permissions-authorization`
+- the main task is generic throttling performance rather than security/abuse
+
+### Inspect first
+- authentication and permission classes
+- queryset/tenant scoping
+- writable/readable sensitive fields
+- cache/background/export paths
+- proxy/header assumptions
+
+### Related skills
+- `drf-permissions-authorization`, `drf-testing`, `drf-celery`

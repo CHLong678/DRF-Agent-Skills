@@ -90,3 +90,23 @@ PostgreSQL-specific JSON/Array/full-text/trigram features can be valuable, but u
 - PostgreSQL indexes: https://www.postgresql.org/docs/current/indexes-intro.html
 - PostgreSQL CREATE INDEX: https://www.postgresql.org/docs/current/sql-createindex.html
 - PostgreSQL locking: https://www.postgresql.org/docs/current/explicit-locking.html
+
+## Routing contract
+
+### Use this skill when
+- PostgreSQL EXPLAIN/planner/indexes/locks/deadlocks/JSON/GIN/GiST or DB-specific behavior is primary
+
+### Do not use this skill when
+- the project does not use PostgreSQL
+- the main problem is ORM N+1/query composition without DB-plan evidence; use `drf-orm-performance`
+
+### Inspect first
+- actual PostgreSQL version
+- generated SQL
+- EXPLAIN plan when safe
+- table/index statistics
+- lock/transaction behavior
+- workload read/write balance
+
+### Related skills
+- `drf-orm-performance`, `drf-transactions-concurrency`, `django-migrations-production`

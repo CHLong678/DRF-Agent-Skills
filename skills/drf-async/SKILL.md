@@ -89,3 +89,21 @@ Exercise the actual async path when async behavior matters, and test sync/async 
 ## Review checklist
 
 Check installed Django version, measurable async benefit, blocking dependencies, ASGI deployment, ORM compatibility, streaming compatibility, timeouts, and whether Celery is a better fit.
+
+## Routing contract
+
+### Use this skill when
+- async views, ASGI, concurrent request-time I/O, or sync/async boundaries are primary
+
+### Do not use this skill when
+- work should survive the request, retry durably, or be scheduled; use `drf-celery`
+- the task is only ordinary synchronous DRF
+
+### Inspect first
+- Django version
+- ASGI/WSGI deployment
+- middleware/auth/ORM/cache/client sync-async compatibility
+- whether work is request-critical
+
+### Related skills
+- `drf-celery`, `drf-observability`

@@ -115,3 +115,21 @@ Do not optimize for an arbitrary percentage such as 90% at the expense of meanin
 - brittle assertions on irrelevant full response bodies
 - sleeping to coordinate concurrency when deterministic synchronization is possible
 - using wall-clock microbenchmarks as ordinary unit tests
+
+## Routing contract
+
+### Use this skill when
+- test design, regression coverage, API/security/concurrency tests, factories, or DB fidelity is primary
+
+### Do not use this skill when
+- the implementation decision is still unknown; first load the domain skill that defines correct behavior
+
+### Inspect first
+- behavior/invariant being tested
+- existing test framework/factories
+- DB backend
+- transaction/Celery execution mode
+- authorization boundaries
+
+### Related skills
+- use alongside the skill that owns the behavior under test

@@ -61,3 +61,21 @@ Prefer explicit APIs/decorators such as `unscoped()`, `cross_tenant()`, or `skip
 ## Compatibility
 
 These are tooling/architecture patterns and can apply to Django 3.2+.
+
+## Routing contract
+
+### Use this skill when
+- an important architecture/security invariant should be enforced mechanically in CI/static analysis
+
+### Do not use this skill when
+- the architecture rule itself has not been established yet
+- the issue is only style/readability
+
+### Inspect first
+- invariant and failure mode
+- current architecture/dependency direction
+- false-positive/escape-hatch cost
+- existing CI/lint tooling
+
+### Related skills
+- pair with the domain skill that defines the invariant, such as `drf-auth-security` or `drf-celery`
