@@ -42,6 +42,7 @@ See [`COMPATIBILITY.md`](COMPATIBILITY.md) for explicit version gates and fallba
 | `drf-bulk-large-data` | Large imports/exports, `iterator`, bulk create/update, streaming, chunking, memory-safe processing |
 | `django-startup-performance` | `django.setup()`/worker startup, import graphs, `AppConfig.ready()`, lazy-load tradeoffs |
 | `django-admin-large-data` | Large-table Django admin counts, N+1, relation widgets, search/filter performance |
+| `django-architecture-enforcement` | CI/static enforcement for tenant scope, import boundaries, architecture/security invariants |
 
 ## Skill directory layout
 
@@ -76,6 +77,9 @@ Key corrections include:
 - Do not force the newest OpenAPI version when the project's schema generator or clients do not support it correctly.
 - Do not add caching without defining isolation, invalidation, TTL, and stale-data behavior.
 - Treat Celery delivery as potentially duplicate: separate application retry from broker redelivery and require idempotency where delivery semantics need it.
+- Use stable machine-readable API error codes when clients need to branch on failure type; do not make them parse human text.
+- For expensive APIs, consider cost-aware budgets/quotas instead of relying only on requests-per-minute throttling.
+- When tenant isolation or architecture boundaries are critical, prefer CI/static enforcement over prose-only conventions.
 - Do not bulk-process huge datasets by materializing every row/object in memory; prefer bounded chunks, `iterator()`, set-based updates, streaming, or background jobs according to workload.
 
 ## Install for Codex
@@ -166,6 +170,7 @@ drf-celery           background jobs, retries, queues, worker/backlog behavior
 drf-bulk-large-data  imports, exports, bulk APIs, huge QuerySets, chunked processing
 django-startup-performance  slow Django/Celery/manage.py startup and import graphs
 django-admin-large-data     admin changelist/form performance on large tables
+django-architecture-enforcement  enforce critical boundaries/invariants in CI
 drf-testing          implementation or review of tests
 ```
 
