@@ -40,6 +40,23 @@ See [`COMPATIBILITY.md`](COMPATIBILITY.md) for explicit version gates and fallba
 | `drf-filtering-pagination` | django-filter, bounded ranges, multi-value filters, large-list pagination, two-phase hydration |
 | `drf-celery` | Task boundaries, `on_commit`, idempotency, retries, `acks_late`, queues, prefetch, chunking, monitoring |
 | `drf-bulk-large-data` | Large imports/exports, `iterator`, bulk create/update, streaming, chunking, memory-safe processing |
+| `django-startup-performance` | `django.setup()`/worker startup, import graphs, `AppConfig.ready()`, lazy-load tradeoffs |
+| `django-admin-large-data` | Large-table Django admin counts, N+1, relation widgets, search/filter performance |
+
+## Skill directory layout
+
+Each skill is a self-contained directory. `SKILL.md` is the entrypoint; deeper material is loaded only when needed:
+
+```text
+skills/<skill-name>/
+├── SKILL.md
+├── references/      # deeper rules, edge cases, compatibility notes
+│   └── *.md
+└── examples/        # optional copyable examples
+    └── *.py
+```
+
+The installers copy the entire skill directory recursively, so Codex and Antigravity receive references/examples together with the entrypoint.
 
 ## Design principles
 
@@ -147,6 +164,8 @@ drf-observability     performance and production diagnostics
 drf-filtering-pagination   large/complex list endpoints and FilterSet work
 drf-celery           background jobs, retries, queues, worker/backlog behavior
 drf-bulk-large-data  imports, exports, bulk APIs, huge QuerySets, chunked processing
+django-startup-performance  slow Django/Celery/manage.py startup and import graphs
+django-admin-large-data     admin changelist/form performance on large tables
 drf-testing          implementation or review of tests
 ```
 
@@ -202,6 +221,7 @@ Notable inspiration:
 - `davila7/claude-code-templates`
 - `prowler-cloud/prowler` (`skills/django-drf`)
 - `Jeffallan/claude-skills` (`skills/django-expert`)
+- `PostHog/posthog` (`.agents/skills/improving-drf-endpoints` plus production Django patterns)
 
 Authoritative references used for reliability-sensitive rules:
 

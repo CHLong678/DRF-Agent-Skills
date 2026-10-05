@@ -109,3 +109,12 @@ Use `self.context` for request/view-aware serialization when necessary, but avoi
 ## Review checklist
 
 Check explicit field allowlist, read/write correctness, PATCH semantics, null vs blank, unknown-field policy, uniqueness/race safety, nested-query behavior, computed-field schema accuracy, stable errors, and request/response separation.
+
+## Deep references
+
+Load these only when relevant:
+
+- `references/schema-typing.md` — typed List/Dict/JSON fields, `help_text`, named choices, computed-field schema typing, and explicit response shapes.
+- `examples/typed_fields.py` — Django 3.2+/DRF-compatible serializer examples.
+
+When OpenAPI or generated clients are involved, treat serializer metadata as part of the public contract.

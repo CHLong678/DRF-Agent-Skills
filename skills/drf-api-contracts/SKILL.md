@@ -79,3 +79,9 @@ Document custom `@action` endpoints explicitly when inference is insufficient: r
 ## Verification
 
 When changing a public contract, update tests and documentation together.
+
+## Deep references
+
+Load `references/openapi-runtime-parity.md` when custom actions, schema overrides, query-parameter serializers, generated clients, or response typing are involved.
+
+A schema annotation must describe runtime behavior faithfully; never make generated clients narrower than the actual endpoint by accident.

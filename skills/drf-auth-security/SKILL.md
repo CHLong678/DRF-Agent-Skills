@@ -156,3 +156,9 @@ Check:
 - throttle/abuse bypass
 - CORS/CSRF assumptions
 - obsolete/shadow endpoints
+
+## Deep references
+
+Load `references/multi-tenant-scoping.md` for organization/account/workspace/project scoped systems.
+
+For high-risk multi-tenant applications, consider fail-closed data-access mechanisms as defense in depth, but keep explicit API authorization as the primary security boundary.

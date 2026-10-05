@@ -133,3 +133,9 @@ Validate ordering fields explicitly.
 ## Testing
 
 Cover valid filters, invalid values, multi-value filters, max-range boundaries, ordering stability, pagination boundaries, authorization/filter interaction, and query-count regressions for expensive list endpoints.
+
+## Deep references
+
+Load `references/large-count-pagination.md` when exact `COUNT(*)` becomes a measurable bottleneck.
+
+Exact total counts are part of the API contract, not an automatic requirement. Consider cursor pagination, `has_more`, or capped counts only when client semantics allow it.

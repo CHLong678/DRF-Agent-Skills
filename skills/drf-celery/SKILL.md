@@ -140,3 +140,10 @@ Validate request, create durable job record if needed, commit, enqueue with `on_
 - Celery 5.0 Optimizing: https://docs.celeryq.dev/en/v5.0.5/userguide/optimizing.html
 - Celery 5.0 Configuration: https://docs.celeryq.dev/en/v5.0.0/userguide/configuration.html
 - Django 3.2 transactions/on_commit: https://docs.djangoproject.com/en/3.2/topics/db/transactions/
+
+## Deep references
+
+- `references/tenant-scope.md` — explicit tenant/account scope propagation from DRF requests into Celery workers.
+- `examples/tenant_task.py` — baseline-compatible dispatch-after-commit and scoped task example.
+
+Request-local authorization context does not survive broker dispatch automatically.
