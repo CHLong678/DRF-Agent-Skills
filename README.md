@@ -18,13 +18,17 @@ The repository intentionally avoids generic frontend, non-Django, and unrelated 
 | `drf-views` | APIView, GenericAPIView, mixins, generic views, ViewSets, actions, lifecycle |
 | `drf-orm-performance` | QuerySet design, N+1 prevention, annotations, bulk work, indexing guidance |
 | `drf-transactions-concurrency` | `atomic`, `select_for_update`, `on_commit`, race conditions, idempotency |
-| `drf-auth-security` | Authentication, permissions, object access, throttling, secure API behavior |
-| `drf-testing` | pytest-django, API tests, factories, transaction/concurrency tests |
+| `drf-auth-security` | Authentication, permissions, BOLA/IDOR, tenant isolation, throttling, secure API behavior |
+| `drf-testing` | pytest-django, API/security tests, factories, transaction/concurrency tests |
 | `drf-code-review` | DRF-specific code review checklist and risk prioritization |
+| `drf-api-contracts` | API evolution, versioning, deprecation, error contracts, pagination, OpenAPI |
+| `drf-async` | Async views, ASGI, sync/async boundaries, deciding between async and background jobs |
+| `drf-caching` | Redis/application/HTTP caching, key design, invalidation, ETags, stampede prevention |
+| `drf-observability` | Profiling, structured logging, metrics, tracing, load testing, performance verification |
 
 ## Design principles
 
-These skills were inspired by production-grade agent-skill repositories such as ECC, but the rules here are deliberately tightened for DRF and corrected where generic examples are unsafe or overly broad.
+These skills were inspired by production-grade agent-skill repositories such as ECC and claude-code-templates, but the rules here are deliberately tightened for DRF and corrected where generic examples are unsafe, overly broad, or too prescriptive.
 
 Key corrections include:
 
@@ -35,6 +39,10 @@ Key corrections include:
 - Avoid legacy Django/browser security settings as blanket recommendations.
 - Serializer validation should not perform surprising side effects.
 - Views should orchestrate HTTP concerns; complex reusable business workflows belong in services/domain functions.
+- Do not force arbitrary test-coverage percentages; prioritize meaningful behavioral, security, and concurrency tests.
+- Do not convert views to async without checking the complete sync/async dependency path and ASGI deployment.
+- Do not force the newest OpenAPI version when the project's schema generator or clients do not support it correctly.
+- Do not add caching without defining isolation, invalidation, TTL, and stale-data behavior.
 
 ## Install for Codex
 
@@ -108,10 +116,19 @@ drf-serializers
 drf-views
 drf-orm-performance
 drf-transactions-concurrency
+drf-auth-security
 drf-code-review
 ```
 
-Add `drf-auth-security` and `drf-testing` where appropriate.
+Add these when relevant:
+
+```text
+drf-api-contracts     public/versioned APIs
+drf-async             ASGI/async endpoint work
+drf-caching           Redis/HTTP/application caching
+drf-observability     performance and production diagnostics
+drf-testing           implementation or review of tests
+```
 
 ## Example prompts
 
@@ -129,11 +146,30 @@ multiple workers may modify the same record.
 Use drf-orm-performance to optimize this endpoint without changing API output.
 ```
 
+```text
+Use drf-api-contracts to review whether this API change is backward-compatible
+and whether it needs versioning or a deprecation path.
+```
+
+```text
+Use drf-auth-security and drf-testing to check this endpoint for BOLA/IDOR,
+tenant isolation, mass assignment, and missing authorization tests.
+```
+
 ## Repository philosophy
 
 The skills should prefer the existing project's conventions unless they are clearly unsafe. They should not refactor unrelated code, invent abstractions prematurely, or turn DRF code into architecture for architecture's sake.
 
-Before changing code, agents should inspect nearby serializers, views, models, services, tests, and shared utilities to preserve local consistency and backward compatibility.
+Before changing code, agents should inspect nearby serializers, views, models, services, tests, shared utilities, schema generation, and API conventions to preserve local consistency and backward compatibility.
+
+## Sources and adaptation
+
+This repository is not a verbatim copy of upstream skill collections. Ideas are reviewed, narrowed to DRF, and rewritten to favor production correctness.
+
+Notable inspiration:
+
+- `affaan-m/ECC`
+- `davila7/claude-code-templates`
 
 ## License
 
