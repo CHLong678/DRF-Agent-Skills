@@ -118,3 +118,11 @@ For list endpoints with potentially large datasets:
 
 ### Related skills
 - `drf-core`, `drf-serializers`, `drf-permissions-authorization`
+
+## Deep reference
+
+- `references/view-hooks-lifecycle.md`
+
+## Output contract
+
+For implementation guidance, state the chosen DRF abstraction/hook, why it fits, adjacent security/transaction concerns, and how to verify behavior.

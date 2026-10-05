@@ -19,6 +19,14 @@ Routing requirements:
 - Respect each skill's `Routing contract`: Use when, Do not use, Inspect first, and Related skills.
 - Use playbooks for common cross-cutting investigations rather than loading every related skill.
 
+Output requirements:
+
+- Use `OUTPUT_CONTRACTS.md` for performance/debugging, security, concurrency, background processing, migration, and code-review tasks.
+- Separate observed evidence from hypotheses.
+- If the root cause is not established, say what must be measured instead of presenting a guess as fact.
+- State compatibility/version constraints for version-sensitive recommendations.
+- End substantial implementation/debugging advice with a concrete verification method.
+
 If versions are unknown, prefer Django 3.2 / Celery 5.0-compatible patterns. Newer features must be version-gated with a fallback.
 
 When editing a skill:
@@ -36,3 +44,10 @@ When editing a skill:
 - Keep YAML front matter `name` and `description` precise because they drive skill discovery.
 
 See `COMPATIBILITY.md` for version gates.
+
+
+Evaluation assets:
+
+- `evaluations/routing-cases.json` defines expected primary/secondary routing behavior.
+- `scenarios/` contains real-world reasoning fixtures.
+- Changes to routing or skill scope should update these assets when behavior changes.

@@ -124,3 +124,11 @@ If no meaningful issues are found, say so rather than inventing findings.
 
 ### Related skills
 - load only the domain skills required by concrete findings
+
+## Deep reference
+
+- `references/finding-quality.md`
+
+## Output contract
+
+Use the repository `OUTPUT_CONTRACTS.md` code-review format for every blocking or meaningful finding.

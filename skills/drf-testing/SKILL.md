@@ -133,3 +133,11 @@ Do not optimize for an arbitrary percentage such as 90% at the expense of meanin
 
 ### Related skills
 - use alongside the skill that owns the behavior under test
+
+## Deep reference
+
+- `references/test-strategy.md`
+
+## Output contract
+
+For test work, state the behavior/invariant, test layer, environment fidelity, failure path, and why the test proves the intended contract.

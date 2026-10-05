@@ -1,0 +1,187 @@
+[
+  {
+    "id": "slow-api-unknown",
+    "prompt": "This DRF list API is slow in production, but I don't know whether the bottleneck is DB, serializer, cache, or an external service.",
+    "expected_primary": "drf-observability",
+    "allowed_secondary": [],
+    "forbidden_primary": [
+      "drf-caching",
+      "postgresql-for-django",
+      "drf-orm-performance"
+    ],
+    "rationale": "Unknown bottlenecks should be measured before selecting an optimization."
+  },
+  {
+    "id": "serializer-n-plus-one",
+    "prompt": "A SerializerMethodField accesses obj.customer.name and the endpoint now runs hundreds of queries.",
+    "expected_primary": "drf-orm-performance",
+    "allowed_secondary": [
+      "drf-serializers"
+    ],
+    "forbidden_primary": [
+      "postgresql-for-django"
+    ],
+    "rationale": "The primary issue is ORM access shape/N+1; serializer design is secondary."
+  },
+  {
+    "id": "postgres-explain-index",
+    "prompt": "EXPLAIN ANALYZE shows a sequential scan on a large PostgreSQL table. Should I add a composite or partial index?",
+    "expected_primary": "postgresql-for-django",
+    "allowed_secondary": [
+      "drf-orm-performance"
+    ],
+    "forbidden_primary": [
+      "drf-caching"
+    ],
+    "rationale": "Planner and index choice are PostgreSQL-specific."
+  },
+  {
+    "id": "object-permission-list",
+    "prompt": "My has_object_permission works on retrieve but users can still see other tenants' objects in list.",
+    "expected_primary": "drf-permissions-authorization",
+    "allowed_secondary": [
+      "drf-auth-security"
+    ],
+    "forbidden_primary": [
+      "drf-views"
+    ],
+    "rationale": "List queryset scoping and object permissions are authorization concerns."
+  },
+  {
+    "id": "idor-security-review",
+    "prompt": "Review this endpoint for IDOR/BOLA and tenant data leakage across list, detail, export, and cache paths.",
+    "expected_primary": "drf-auth-security",
+    "allowed_secondary": [
+      "drf-permissions-authorization",
+      "drf-testing"
+    ],
+    "forbidden_primary": [],
+    "rationale": "The requested outcome is a broader security review, not only permission implementation."
+  },
+  {
+    "id": "celery-backlog",
+    "prompt": "RabbitMQ ready messages keep increasing and workers have many unacked tasks. How do I diagnose Celery backlog?",
+    "expected_primary": "drf-celery",
+    "allowed_secondary": [
+      "drf-observability",
+      "drf-bulk-large-data"
+    ],
+    "forbidden_primary": [
+      "drf-background-jobs-contracts"
+    ],
+    "rationale": "This is worker/broker behavior, not the public job API contract."
+  },
+  {
+    "id": "202-job-api",
+    "prompt": "Design a DRF endpoint that returns 202, lets clients poll status, cancel a report job, and download the result later.",
+    "expected_primary": "drf-background-jobs-contracts",
+    "allowed_secondary": [
+      "drf-celery",
+      "drf-permissions-authorization"
+    ],
+    "forbidden_primary": [
+      "drf-async"
+    ],
+    "rationale": "The primary problem is the public async-job contract."
+  },
+  {
+    "id": "async-http-fanout",
+    "prompt": "One request needs to call three independent HTTP APIs concurrently and return their combined result. Should the DRF view be async?",
+    "expected_primary": "drf-async",
+    "allowed_secondary": [
+      "drf-observability"
+    ],
+    "forbidden_primary": [
+      "drf-celery"
+    ],
+    "rationale": "The work remains request-critical concurrent I/O."
+  },
+  {
+    "id": "million-row-export",
+    "prompt": "I need to export several million rows without exhausting RAM. Should I stream or create a background export?",
+    "expected_primary": "drf-bulk-large-data",
+    "allowed_secondary": [
+      "drf-background-jobs-contracts",
+      "drf-celery",
+      "postgresql-for-django"
+    ],
+    "forbidden_primary": [
+      "drf-serializers"
+    ],
+    "rationale": "Execution model, memory bounds, and chunking are primary."
+  },
+  {
+    "id": "race-lost-update",
+    "prompt": "Two requests read the same balance and both write back a new value, causing lost updates.",
+    "expected_primary": "drf-transactions-concurrency",
+    "allowed_secondary": [
+      "postgresql-for-django",
+      "drf-testing"
+    ],
+    "forbidden_primary": [
+      "drf-celery"
+    ],
+    "rationale": "The invariant and write concurrency are the main decision."
+  },
+  {
+    "id": "webhook-duplicates",
+    "prompt": "Our provider retries webhooks and sometimes sends events out of order. How should the DRF endpoint deduplicate and process them?",
+    "expected_primary": "drf-webhooks-integrations",
+    "allowed_secondary": [
+      "drf-celery",
+      "drf-transactions-concurrency"
+    ],
+    "forbidden_primary": [
+      "drf-background-jobs-contracts"
+    ],
+    "rationale": "Webhook delivery semantics are primary."
+  },
+  {
+    "id": "production-index-migration",
+    "prompt": "I need to add an index to a very large hot PostgreSQL table without blocking writes during deployment.",
+    "expected_primary": "django-migrations-production",
+    "allowed_secondary": [
+      "postgresql-for-django"
+    ],
+    "forbidden_primary": [
+      "drf-orm-performance"
+    ],
+    "rationale": "The primary decision is production migration rollout; PostgreSQL behavior is secondary."
+  },
+  {
+    "id": "slow-admin",
+    "prompt": "Opening a Django admin changelist for a 20 million row model times out and foreign key widgets are unusable.",
+    "expected_primary": "django-admin-large-data",
+    "allowed_secondary": [
+      "postgresql-for-django"
+    ],
+    "forbidden_primary": [
+      "drf-views"
+    ],
+    "rationale": "The failure is Django admin-specific."
+  },
+  {
+    "id": "schema-runtime-mismatch",
+    "prompt": "A custom DRF action accepts a field at runtime but the generated OpenAPI client doesn't expose it.",
+    "expected_primary": "drf-api-contracts",
+    "allowed_secondary": [
+      "drf-serializers"
+    ],
+    "forbidden_primary": [
+      "drf-views"
+    ],
+    "rationale": "Runtime/schema parity is the primary contract issue."
+  },
+  {
+    "id": "startup-slow",
+    "prompt": "manage.py shell, migrations, and Celery worker startup all became slow after importing many API modules.",
+    "expected_primary": "django-startup-performance",
+    "allowed_secondary": [
+      "django-architecture-enforcement"
+    ],
+    "forbidden_primary": [
+      "drf-observability"
+    ],
+    "rationale": "The problem is import/setup time rather than request-time latency."
+  }
+]

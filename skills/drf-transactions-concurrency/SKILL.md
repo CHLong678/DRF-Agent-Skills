@@ -129,3 +129,11 @@ Check:
 
 ### Related skills
 - `postgresql-for-django`, `drf-celery`, `django-migrations-production`
+
+## Deep reference
+
+- `references/locking-vs-conditional-update.md`
+
+## Output contract
+
+For concurrency work, use the repository `OUTPUT_CONTRACTS.md` concurrency contract: invariant, competing operations, race window, chosen primitive, scope, and concurrency test.

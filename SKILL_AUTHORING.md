@@ -89,12 +89,25 @@ Examples should:
 - avoid secrets/credentials
 - avoid requiring a newer Django/Celery API without a version note
 
+## Evaluation coverage
+
+When a new skill overlaps an existing skill or changes routing behavior:
+
+1. add/update at least one case in `evaluations/routing-cases.json`
+2. set one expected primary skill
+3. list only materially useful secondary skills
+4. add plausible wrong primary skills to `forbidden_primary`
+5. add a scenario under `scenarios/` when the behavior is important enough to require a reasoning fixture
+
+For substantial implementation/review skills, reference the relevant contract from `OUTPUT_CONTRACTS.md` or define an equally concrete skill-specific output structure.
+
 ## Validation
 
 Before pushing:
 
 ```bash
 python scripts/validate_skills.py
+python scripts/validate_evaluations.py
 bash -n scripts/install-codex.sh
 bash -n scripts/install-antigravity.sh
 bash scripts/test_installers.sh

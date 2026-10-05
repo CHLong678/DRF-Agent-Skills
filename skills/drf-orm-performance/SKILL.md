@@ -135,3 +135,11 @@ Do not claim an optimization without evidence when evidence is practical to obta
 
 ### Related skills
 - `postgresql-for-django`, `drf-serializers`, `drf-filtering-pagination`
+
+## Deep reference
+
+- `references/query-shape-playbook.md`
+
+## Output contract
+
+For performance work, use the repository `OUTPUT_CONTRACTS.md` performance/debugging contract: evidence, root cause, proposed change, compatibility constraints, risks, and verification.

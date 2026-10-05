@@ -239,12 +239,34 @@ Use drf-bulk-large-data to redesign this million-row import/export so memory,
 transaction scope, chunk size, retries, and API limits remain bounded.
 ```
 
+## Evaluations and scenarios
+
+The repository includes machine-readable routing cases and production scenarios:
+
+```text
+evaluations/
+└── routing-cases.json
+
+scenarios/
+├── n-plus-one/
+├── race-condition/
+├── celery-duplicate/
+├── tenant-leak/
+├── large-export/
+└── production-migration/
+```
+
+Routing cases define the expected primary skill, allowed secondary skills, forbidden primary choices, and rationale. Scenarios define the expected reasoning path for common production failures.
+
+Agent response structure is standardized in `OUTPUT_CONTRACTS.md` for performance, security, concurrency, Celery/background processing, migrations, and code review.
+
 ## Repository validation
 
 The repository validates its own skill quality in CI:
 
 ```bash
 python scripts/validate_skills.py
+python scripts/validate_evaluations.py
 bash -n scripts/install-codex.sh
 bash -n scripts/install-antigravity.sh
 bash scripts/test_installers.sh
@@ -253,6 +275,8 @@ python -m compileall -q skills
 
 Checks include:
 
+- routing evaluation cases reference only real skills and contain no contradictory expectations
+- real-world scenarios contain required reasoning/routing sections
 - every skill directory contains `SKILL.md`
 - frontmatter name matches the directory
 - descriptions contain a concrete `Use when ...` discovery trigger
