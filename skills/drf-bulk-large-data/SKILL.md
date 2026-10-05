@@ -1,6 +1,6 @@
 ---
 name: drf-bulk-large-data
-description: Django REST Framework large-data and bulk-processing guidance compatible with Django 3.2+. Use for large imports/exports, bulk create/update APIs, huge QuerySets, chunking, iterator/server-side cursors, streaming CSV, memory-safe jobs, or deciding when to move work to Celery.
+description: Django REST Framework large-data and bulk-processing guidance compatible with Django 3.2+. Use when handling large imports/exports, bulk create/update APIs, huge QuerySets, chunking, streaming, or memory-safe background processing.
 ---
 
 # DRF Bulk & Large Data

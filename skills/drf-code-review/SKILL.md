@@ -1,6 +1,6 @@
 ---
 name: drf-code-review
-description: Review Django REST Framework changes for correctness, architecture, ORM performance, transactions, permissions, API compatibility, and tests. Use for DRF pull requests, diffs, refactors, endpoint reviews, and bug-risk analysis.
+description: Django REST Framework code review guidance for correctness, architecture, ORM performance, transactions, permissions, API compatibility, and tests. Use when reviewing DRF pull requests, diffs, refactors, endpoints, or bug-risk changes.
 ---
 
 # DRF Code Review
