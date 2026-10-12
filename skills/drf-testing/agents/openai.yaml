@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Testing"
+  short_description: "Test backend behavior at stable public seams"

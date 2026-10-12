@@ -143,3 +143,11 @@ Do not claim an optimization without evidence when evidence is practical to obta
 ## Output contract
 
 For performance work, use the repository `OUTPUT_CONTRACTS.md` performance/debugging contract: evidence, root cause, proposed change, compatibility constraints, risks, and verification.
+
+## Completion criteria
+
+Done when:
+- baseline query count/SQL or DB time is measured
+- the ORM access pattern causing the excess work is identified
+- the response/business behavior remains compatible
+- before/after query behavior is verified with realistic data

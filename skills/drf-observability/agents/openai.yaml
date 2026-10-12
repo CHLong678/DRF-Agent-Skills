@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Observability"
+  short_description: "Measure backend latency, errors, traces, and saturation"

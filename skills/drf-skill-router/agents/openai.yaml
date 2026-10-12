@@ -1,0 +1,5 @@
+interface:
+  display_name: "DRF Skill Router"
+  short_description: "Choose the smallest correct backend skill set"
+policy:
+  allow_implicit_invocation: false

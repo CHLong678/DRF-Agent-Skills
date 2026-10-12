@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Filtering Pagination"
+  short_description: "Design scalable filters, ordering, and pagination"

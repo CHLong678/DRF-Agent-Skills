@@ -1,6 +1,7 @@
 ---
 name: drf-skill-router
-description: Route ambiguous or cross-cutting Django REST Framework tasks to the smallest correct set of repository skills. Use when multiple skills appear relevant, the bottleneck/domain is not yet known, or a task spans API, database, Celery, security, and production concerns.
+description: Choose the smallest correct set of DRF-Agent-Skills for an ambiguous or cross-cutting backend task.
+disable-model-invocation: true
 ---
 
 # DRF Skill Router
@@ -15,6 +16,12 @@ Use it to choose:
 - the order in which they should be read
 
 Do not load every related skill.
+
+## Source-of-truth rule
+
+This router and `ROUTING.md` are secondary sources for orientation.
+
+Before acting on a routed skill, read that skill's own `SKILL.md`. Do not implement from router summaries alone.
 
 ## Routing procedure
 
@@ -60,3 +67,11 @@ Read `references/routing-matrix.md` for precedence and overlap rules.
 ### Related skills
 - `ROUTING.md` and `references/routing-matrix.md` are the routing source of truth
 - after routing, use the chosen primary domain skill as authoritative
+
+## Completion criteria
+
+Done when:
+- exactly one primary skill is selected
+- secondary skills are limited to real cross-boundary concerns
+- the chosen domain skill's own SKILL.md has been read before acting
+- loading stops once the decision can be made safely

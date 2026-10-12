@@ -73,3 +73,11 @@ Use reconciliation rather than assuming every request completes perfectly.
 ## Deep reference
 
 - references/upload-state-machine.md
+
+## Completion criteria
+
+Done when:
+- upload/download and authorization flow are explicit
+- DB metadata and object lifecycle states are consistent by design
+- large/untrusted file constraints and finalization are defined
+- orphan/failed-upload cleanup can be verified

@@ -26,6 +26,11 @@ for dest in "$tmp/codex" "$tmp/antigravity" "$tmp/antigravity-cli"; do
       exit 1
     }
 
+    [ -f "$dest/$name/agents/openai.yaml" ] || {
+      echo "Missing installed agents/openai.yaml for $name in $dest" >&2
+      exit 1
+    }
+
     if [ -d "$source_skill/references" ]; then
       [ -d "$dest/$name/references" ] || {
         echo "references/ not copied for $name" >&2

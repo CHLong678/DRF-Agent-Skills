@@ -124,3 +124,11 @@ Do not keep a cache solely because it exists.
 
 ### Related skills
 - `drf-observability`, `drf-auth-security`, `drf-transactions-concurrency`
+
+## Completion criteria
+
+Done when:
+- the cache key contains every correctness/tenant dimension
+- freshness/invalidation behavior is explicit
+- outage/stampede behavior is considered
+- hit/miss/source-load behavior is measured

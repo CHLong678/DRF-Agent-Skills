@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Webhooks Integrations"
+  short_description: "Verify and process webhook delivery safely"

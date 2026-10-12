@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Bulk Large Data"
+  short_description: "Process large datasets with bounded memory and work"

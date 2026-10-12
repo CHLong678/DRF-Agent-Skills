@@ -1,0 +1,3 @@
+interface:
+  display_name: "Django Production Migrations"
+  short_description: "Plan safe production schema and data changes"

@@ -110,3 +110,11 @@ PostgreSQL-specific JSON/Array/full-text/trigram features can be valuable, but u
 
 ### Related skills
 - `drf-orm-performance`, `drf-transactions-concurrency`, `django-migrations-production`
+
+## Completion criteria
+
+Done when:
+- the actual PostgreSQL version and generated SQL are known
+- plan/index/lock conclusions are supported by database evidence
+- read/write trade-offs and migration impact are considered
+- the relevant query/lock behavior is verified after the change

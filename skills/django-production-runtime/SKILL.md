@@ -69,3 +69,11 @@ Coordinate schema/event/API changes accordingly.
 ## Deep reference
 
 - references/runtime-checklist.md
+
+## Completion criteria
+
+Done when:
+- runtime roles and critical configuration are explicit
+- health/readiness semantics match the deployment contract
+- shutdown grace aligns with request/task limits
+- rolling-deploy compatibility and runtime verification are defined

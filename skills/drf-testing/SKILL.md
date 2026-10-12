@@ -21,6 +21,33 @@ Test:
 - side-effect scheduling
 - pagination/filter/order behavior where part of the API contract
 
+## Test through a seam
+
+A **seam** is the stable public boundary through which behavior is exercised.
+
+Choose the highest useful seam that proves the invariant:
+
+- API behavior -> DRF APIClient/client request
+- reusable business workflow -> service/application interface
+- database concurrency -> transaction-aware integration boundary
+- Celery business effect -> task/application boundary plus dispatch semantics where needed
+- provider integration -> adapter/client boundary
+
+Prefer observable outcomes over internal call counts.
+
+A test should survive internal refactoring when public behavior does not change.
+
+## Tracer-bullet development
+
+For new behavior, prefer one vertical red-green slice at a time:
+
+1. write one failing behavior test at the chosen seam
+2. implement the minimum behavior to make it pass
+3. refactor while keeping the seam green
+4. add the next behavior slice
+
+Avoid writing a large horizontal suite against imagined implementation details before the behavior exists.
+
 ## API tests
 
 Use DRF test clients for endpoint behavior. Avoid mocking DRF itself.
@@ -141,3 +168,11 @@ Do not optimize for an arbitrary percentage such as 90% at the expense of meanin
 ## Output contract
 
 For test work, state the behavior/invariant, test layer, environment fidelity, failure path, and why the test proves the intended contract.
+
+## Completion criteria
+
+Done when:
+- the invariant/behavior under test is explicit
+- the chosen seam proves observable behavior rather than implementation details
+- environment/database fidelity matches the behavior being claimed
+- the regression fails before the fix and passes after it

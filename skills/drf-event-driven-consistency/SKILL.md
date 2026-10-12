@@ -67,3 +67,11 @@ Treat event payloads as contracts that can outlive a deployment.
 ## Deep reference
 
 - references/outbox-and-consumers.md
+
+## Completion criteria
+
+Done when:
+- source of truth and cross-system consistency requirement are explicit
+- duplicate and ordering behavior are defined
+- any outbox/relay/consumer design is idempotent and observable
+- replay/reconciliation/failure recovery is verifiable

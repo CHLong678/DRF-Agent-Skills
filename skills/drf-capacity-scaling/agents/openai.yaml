@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Capacity Scaling"
+  short_description: "Reason about saturation, concurrency, and scaling budgets"

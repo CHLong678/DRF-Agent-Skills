@@ -101,3 +101,11 @@ https://docs.stripe.com/webhooks
 
 ### Related skills
 - `drf-celery`, `drf-transactions-concurrency`, `drf-auth-security`
+
+## Completion criteria
+
+Done when:
+- authenticity verification uses the correct raw payload/provider contract
+- duplicate/out-of-order delivery behavior is explicit
+- processing is idempotent and responds within provider timing expectations
+- replay/retry/failure behavior is tested

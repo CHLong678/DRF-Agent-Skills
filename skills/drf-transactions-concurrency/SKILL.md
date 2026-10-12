@@ -141,3 +141,11 @@ For concurrency work, use the repository `OUTPUT_CONTRACTS.md` concurrency contr
 ## Additional deep reference
 
 - `references/distributed-locking.md` — use only after simpler DB/idempotency mechanisms are ruled out.
+
+## Completion criteria
+
+Done when:
+- the protected invariant and competing operations are explicit
+- the race window is identified
+- the chosen primitive is no stronger than necessary and still protects the invariant
+- concurrent/duplicate execution is tested with the relevant database/runtime semantics

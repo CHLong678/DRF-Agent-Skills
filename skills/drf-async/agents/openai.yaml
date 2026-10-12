@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Async"
+  short_description: "Choose async request-time I/O safely"

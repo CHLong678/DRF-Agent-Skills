@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF API Contracts"
+  short_description: "Protect schema and backward-compatible API behavior"

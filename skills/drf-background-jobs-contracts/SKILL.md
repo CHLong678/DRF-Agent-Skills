@@ -103,3 +103,11 @@ Status/result endpoints must enforce the same tenant/ownership permissions as th
 
 ### Related skills
 - `drf-celery`, `drf-api-contracts`, `drf-permissions-authorization`
+
+## Completion criteria
+
+Done when:
+- public job states and transitions are explicit
+- retry/cancel/result semantics are separated from internal Celery state
+- ownership/retention/idempotency are defined
+- API tests verify the observable job contract

@@ -181,3 +181,11 @@ For high-risk multi-tenant applications, consider fail-closed data-access mechan
 
 ### Related skills
 - `drf-permissions-authorization`, `drf-testing`, `drf-celery`
+
+## Completion criteria
+
+Done when:
+- the protected resource and trust/tenant boundary are explicit
+- list/detail/create/action and background/cache paths are checked as relevant
+- the concrete attack/failure path is closed
+- regression tests cover the security boundary where practical

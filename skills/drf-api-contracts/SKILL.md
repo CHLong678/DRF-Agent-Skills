@@ -104,3 +104,11 @@ A schema annotation must describe runtime behavior faithfully; never make genera
 
 ### Related skills
 - `drf-serializers`, `drf-background-jobs-contracts`, `drf-filtering-pagination`
+
+## Completion criteria
+
+Done when:
+- the public request/response/error contract is explicit
+- runtime behavior and generated schema agree
+- compatibility/deprecation impact is checked
+- contract tests or schema verification cover the change

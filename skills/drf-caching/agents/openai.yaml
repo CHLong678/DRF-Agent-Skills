@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Caching"
+  short_description: "Design correct cache keys, freshness, and invalidation"

@@ -1,0 +1,5 @@
+interface:
+  display_name: "Backend Agent Retro"
+  short_description: "Improve the agent environment after failures"
+policy:
+  allow_implicit_invocation: false

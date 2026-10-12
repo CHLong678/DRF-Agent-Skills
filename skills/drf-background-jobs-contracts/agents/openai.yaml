@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Background Job Contracts"
+  short_description: "Design 202 job, progress, cancel, and result APIs"

@@ -107,3 +107,11 @@ Check installed Django version, measurable async benefit, blocking dependencies,
 
 ### Related skills
 - `drf-celery`, `drf-observability`
+
+## Completion criteria
+
+Done when:
+- request-time concurrency is shown to be useful for this workload
+- blocking sync dependencies are identified
+- Django/dependency version constraints are checked
+- behavior is verified under the actual ASGI/runtime model

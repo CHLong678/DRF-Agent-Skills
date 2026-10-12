@@ -102,3 +102,11 @@ Read `references/changelist-performance.md` for a diagnostic flow.
 
 ### Related skills
 - `postgresql-for-django`, `drf-bulk-large-data`
+
+## Completion criteria
+
+Done when:
+- the admin bottleneck is identified with query/count/widget evidence
+- list/search/form behavior remains correct
+- before/after query count or latency is measured
+- large-data behavior is verified with realistic cardinality

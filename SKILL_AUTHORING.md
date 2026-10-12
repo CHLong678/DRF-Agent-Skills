@@ -45,6 +45,37 @@ If a recommendation requires a newer version:
 2. provide a baseline-compatible fallback where practical
 3. tell the agent to inspect the project's installed versions first
 
+## Invocation metadata
+
+Every skill must contain `agents/openai.yaml` with:
+
+```yaml
+interface:
+  display_name: "Human-readable name"
+  short_description: "Concise picker description"
+```
+
+Model-invoked skills omit the policy block.
+
+User-invoked skills must set both:
+
+- `disable-model-invocation: true` in `SKILL.md`
+- `policy.allow_implicit_invocation: false` in `agents/openai.yaml`
+
+See `AUTHORING/INVOCATION.md`.
+
+## Context pointers
+
+Treat frontmatter descriptions as routing pointers. Model-invoked skills need concrete `Use when ...` trigger language; user-invoked skill descriptions remain human-facing.
+
+See `AUTHORING/CONTEXT_POINTERS.md`.
+
+## Completion criteria
+
+Every `SKILL.md` must include an observable `## Completion criteria` section.
+
+See `AUTHORING/COMPLETION_CRITERIA.md`.
+
 ## Routing contract
 
 Every `SKILL.md` must include:
@@ -115,6 +146,7 @@ Before pushing:
 
 ```bash
 python scripts/validate_skills.py
+python scripts/validate_invocation_metadata.py
 python scripts/validate_evaluations.py
 python scripts/validate_backend_patterns.py
 python scripts/validate_agent_protocols.py
@@ -126,3 +158,10 @@ python -m compileall -q skills
 ```
 
 CI runs the same checks.
+
+
+## Scope governance
+
+Before adding a new skill, read `SCOPE.md` and `.out-of-scope/README.md`.
+
+Prefer deepening an existing skill/reference/playbook/eval over adding another top-level skill unless a distinct routing boundary is demonstrated.

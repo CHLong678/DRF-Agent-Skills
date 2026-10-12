@@ -117,3 +117,11 @@ Read `references/import-path-checklist.md` for an audit checklist and safe refac
 
 ### Related skills
 - `django-architecture-enforcement`, `drf-observability`
+
+## Completion criteria
+
+Done when:
+- startup/import time is measured
+- the expensive import/registration path is identified
+- the change preserves required registrations/signals/commands
+- before/after startup time is verified

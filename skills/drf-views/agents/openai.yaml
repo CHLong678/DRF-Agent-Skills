@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Views"
+  short_description: "Choose DRF views, viewsets, hooks, and actions"

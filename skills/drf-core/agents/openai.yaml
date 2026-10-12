@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Core"
+  short_description: "Choose clean DRF application boundaries"

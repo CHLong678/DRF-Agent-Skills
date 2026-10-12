@@ -123,3 +123,11 @@ Check:
 
 ### Related skills
 - route to `drf-orm-performance`, `postgresql-for-django`, `drf-caching`, or `drf-celery` after evidence
+
+## Completion criteria
+
+Done when:
+- the unknown failure/performance question has a measurable signal
+- instrumentation distinguishes the leading hypotheses
+- metrics/logs/traces avoid unsafe cardinality or sensitive data
+- the result can be used to verify the eventual fix

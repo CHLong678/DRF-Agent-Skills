@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Rate Limits Quotas"
+  short_description: "Protect capacity with fair rate and cost budgets"

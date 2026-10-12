@@ -118,3 +118,11 @@ https://www.django-rest-framework.org/api-guide/permissions/
 
 ### Related skills
 - `drf-auth-security`, `drf-views`, `drf-testing`
+
+## Completion criteria
+
+Done when:
+- list/detail/create/update/action authorization rules are explicit
+- queryset visibility and object permission responsibilities are clear
+- cross-user/cross-tenant paths are tested where relevant
+- writable ownership/role/tenant fields cannot bypass the rule

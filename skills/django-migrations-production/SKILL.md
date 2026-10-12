@@ -116,3 +116,11 @@ Use:
 
 ### Related skills
 - `postgresql-for-django`, `drf-bulk-large-data`
+
+## Completion criteria
+
+Done when:
+- generated SQL and lock/scan risk are understood
+- old/new application compatibility is explicit
+- large backfills are bounded and restartable where needed
+- rollout and rollback/retry verification is defined

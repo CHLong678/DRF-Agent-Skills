@@ -1,0 +1,3 @@
+interface:
+  display_name: "PostgreSQL for Django"
+  short_description: "Analyze plans, indexes, locks, and PostgreSQL behavior"

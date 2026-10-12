@@ -41,6 +41,8 @@
     "reconciliation-repair",
     "resumable-repair",
     "distributed-lock-risk",
-    "fencing-or-simpler-primitive"
+    "fencing-or-simpler-primitive",
+    "tight-feedback-loop",
+    "falsifiable-hypothesis"
   ]
 }

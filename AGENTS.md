@@ -85,3 +85,21 @@ Level-3 executable evals:
 - `scripts/run_level3_evals.py` copies fixtures to temporary workspaces, invokes an agent, and runs deterministic verification commands.
 - Never weaken or delete fixture tests to make an eval pass.
 - Normal CI validates and dry-runs the Level-3 harness; real agent runs are explicit because they need authenticated model access.
+
+
+Invocation and attention:
+
+- Skill descriptions are context pointers, not marketing summaries.
+- Model-invoked skills use concrete `Use when ...` triggers.
+- User-invoked skills are limited to explicit workflow choices and must disable implicit invocation in both `SKILL.md` and `agents/openai.yaml`.
+- `ROUTING.md` and router summaries are secondary sources. Before acting on a routed skill, read that skill's own `SKILL.md`.
+- Follow `AUTHORING/CONTEXT_POINTERS.md` when changing descriptions.
+- Every skill must define observable `Completion criteria`.
+
+
+Debugging discipline:
+
+- For hard/intermittent bugs, prefer `backend-diagnosing-bugs`.
+- Build a tight red-capable feedback loop before speculative fixes.
+- Minimise the failing case, form falsifiable hypotheses, and gather discriminating evidence.
+- Preserve useful regression checks after the fix.

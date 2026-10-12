@@ -1,0 +1,3 @@
+interface:
+  display_name: "Backend Diagnosing Bugs"
+  short_description: "Build a tight repro loop before fixing"

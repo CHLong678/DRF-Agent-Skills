@@ -79,3 +79,11 @@ These are tooling/architecture patterns and can apply to Django 3.2+.
 
 ### Related skills
 - pair with the domain skill that defines the invariant, such as `drf-auth-security` or `drf-celery`
+
+## Completion criteria
+
+Done when:
+- the invariant to enforce is explicit
+- the lowest-noise enforcement mechanism is chosen
+- known violations are covered by a failing/passing check
+- legacy exceptions or rollout scope are documented

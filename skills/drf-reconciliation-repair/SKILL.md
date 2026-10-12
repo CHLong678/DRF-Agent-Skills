@@ -70,3 +70,11 @@ Record enough information to answer what was changed, why, by which job/operator
 ## Deep reference
 
 - references/repair-job-checklist.md
+
+## Completion criteria
+
+Done when:
+- the source of truth and repair invariant are explicit
+- candidate detection can run safely before mutation
+- repair is bounded, resumable, and duplicate-safe
+- convergence and auditability are verified

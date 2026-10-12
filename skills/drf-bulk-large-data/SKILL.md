@@ -153,3 +153,11 @@ Track rows processed, rows/sec, chunk duration, DB time, memory where available,
 
 ### Related skills
 - `drf-celery`, `drf-background-jobs-contracts`, `postgresql-for-django`
+
+## Completion criteria
+
+Done when:
+- workload size and memory/latency budget are quantified
+- sync/stream/background execution is chosen deliberately
+- chunk/transaction boundaries are bounded
+- memory, DB pressure, and partial-failure behavior are verified

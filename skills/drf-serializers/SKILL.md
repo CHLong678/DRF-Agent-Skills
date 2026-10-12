@@ -139,3 +139,11 @@ When OpenAPI or generated clients are involved, treat serializer metadata as par
 
 ### Related skills
 - `drf-api-contracts`, `drf-orm-performance`, `drf-permissions-authorization`
+
+## Completion criteria
+
+Done when:
+- read/write/validation semantics are explicit
+- omitted vs null and sensitive writable fields behave correctly
+- serializer-driven query behavior is understood
+- API/schema/tests verify the intended representation

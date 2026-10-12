@@ -1,0 +1,3 @@
+interface:
+  display_name: "Django Production Runtime"
+  short_description: "Runtime, readiness, shutdown, and deploy boundaries"

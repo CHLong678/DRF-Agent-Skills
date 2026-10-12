@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF ORM Performance"
+  short_description: "Fix N+1 and inefficient ORM access patterns"

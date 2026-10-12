@@ -67,12 +67,17 @@ def validate_skill(skill_dir: Path) -> list[str]:
     elif len(description) < 30:
         errors.append(f"{skill_file}: description is too short to drive reliable skill discovery")
 
-    if "Use when" not in description:
-        errors.append(f"{skill_file}: description should include a 'Use when ...' trigger clause")
+    user_invoked = frontmatter.get("disable-model-invocation", "").lower() == "true"
+
+    if not user_invoked and "Use when" not in description:
+        errors.append(f"{skill_file}: model-invoked description should include a 'Use when ...' trigger clause")
 
     for section in ROUTING_SECTIONS:
         if section not in text:
             errors.append(f"{skill_file}: missing required routing section: {section}")
+
+    if "## Completion criteria" not in text:
+        errors.append(f"{skill_file}: missing required section: ## Completion criteria")
 
     for relative in LOCAL_REF_RE.findall(text):
         target = skill_dir / relative

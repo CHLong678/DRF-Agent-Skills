@@ -159,3 +159,11 @@ Exact total counts are part of the API contract, not an automatic requirement. C
 
 ### Related skills
 - `drf-orm-performance`, `postgresql-for-django`, `drf-api-contracts`
+
+## Completion criteria
+
+Done when:
+- supported filters/orderings and pagination semantics are explicit
+- ordering is deterministic for the chosen pagination strategy
+- authorization scope is preserved
+- count/query cost and response compatibility are verified

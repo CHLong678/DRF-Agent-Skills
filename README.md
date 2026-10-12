@@ -32,6 +32,17 @@ For non-trivial work, agents should:
 5. use `OUTPUT_CONTRACTS.md` for a verifiable result
 6. verify behavior with tests/measurements appropriate to the risk
 
+## Invocation model
+
+Skills are split into:
+
+- **model-invoked** domain skills, whose descriptions contain concrete discovery triggers
+- **user-invoked** workflow skills, currently `drf-skill-router` and `backend-agent-retro`
+
+Every skill also ships `agents/openai.yaml` for Codex display/policy metadata. The repository validates that Codex invocation policy matches the skill frontmatter.
+
+See `AUTHORING/INVOCATION.md`.
+
 ## Skill routing
 
 When more than one skill appears relevant, start with `ROUTING.md` or the `drf-skill-router` skill.
@@ -58,7 +69,9 @@ See `backend-patterns/SOURCES.md` for source/adaptation rules.
 
 | Skill | Purpose |
 |---|---|
-| `drf-skill-router` | Route ambiguous/cross-cutting tasks to the smallest correct set of skills |
+| `drf-skill-router` | Explicit user-invoked router for ambiguous/cross-cutting tasks |
+| `backend-diagnosing-bugs` | Tight feedback-loop diagnosis for hard/intermittent backend failures |
+| `backend-agent-retro` | Explicit retrospective that improves the agent environment after failures |
 | `drf-core` | Architecture, API boundaries, service-layer guidance, response/error conventions |
 | `drf-serializers` | Serializer design, validation, nested data, read/write separation |
 | `drf-views` | APIView, GenericAPIView, mixins, generic views, ViewSets, actions, lifecycle |
@@ -98,6 +111,8 @@ Each skill is a self-contained directory. `SKILL.md` is the entrypoint; deeper m
 ```text
 skills/<skill-name>/
 ├── SKILL.md
+├── agents/
+│   └── openai.yaml
 ├── references/      # deeper rules, edge cases, compatibility notes
 │   └── *.md
 └── examples/        # optional copyable examples
@@ -344,6 +359,7 @@ The repository validates its own skill quality in CI:
 
 ```bash
 python scripts/validate_skills.py
+python scripts/validate_invocation_metadata.py
 python scripts/validate_evaluations.py
 python scripts/validate_backend_patterns.py
 python scripts/validate_agent_protocols.py
@@ -363,13 +379,15 @@ Checks include:
 - real-world scenarios contain required reasoning/routing sections
 - every skill directory contains `SKILL.md`
 - frontmatter name matches the directory
-- descriptions contain a concrete `Use when ...` discovery trigger
+- model-invoked descriptions contain a concrete `Use when ...` discovery trigger
+- user/model invocation policy is consistent between `SKILL.md` and `agents/openai.yaml`
+- every skill contains observable completion criteria
 - local `references/` and `examples/` links exist
 - Python examples compile
 - installer shell syntax is valid
-- Codex and Antigravity installers copy the full skill directory, including references/examples
+- Codex and Antigravity installers copy the full skill directory, including `agents/openai.yaml`, references, and examples
 
-See `SKILL_AUTHORING.md` before adding a new skill.
+See `SKILL_AUTHORING.md`, `AUTHORING/`, and `SCOPE.md` before adding a new skill.
 
 ## Repository philosophy
 
@@ -394,6 +412,7 @@ Notable inspiration:
 - `HackSoftware/Django-Styleguide`
 - `Sairyss/domain-driven-hexagon`
 - `cookiecutter/cookiecutter-django`
+- `mattpocock/skills` (invocation boundaries, context-pointer design, feedback loops, seams, completion criteria, and skill governance)
 
 See `backend-patterns/SOURCES.md` for adaptation notes and the primary-authority rule.
 

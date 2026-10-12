@@ -65,3 +65,11 @@ Design for bursts, retries, deploy overlap, and node loss rather than steady-sta
 ## Deep reference
 
 - references/django-process-budget.md
+
+## Completion criteria
+
+Done when:
+- the saturated resource is identified with evidence
+- shared concurrency/capacity budgets are calculated
+- the proposed scaling change does not overload downstream dependencies
+- before/after throughput and tail latency are verified

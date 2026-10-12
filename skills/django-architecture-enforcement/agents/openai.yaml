@@ -1,0 +1,3 @@
+interface:
+  display_name: "Django Architecture Enforcement"
+  short_description: "Enforce backend invariants mechanically"

@@ -80,3 +80,11 @@ Use HTTP 429 when the rejection is a rate/quota policy and include Retry-After o
 ## Deep reference
 
 - references/drf-throttle-boundaries.md
+
+## Completion criteria
+
+Done when:
+- the finite resource and budget owner are explicit
+- rate/concurrency/cost accounting matches the real workload
+- bypass/fairness/backend-failure behavior is considered
+- rejection and Retry-After behavior are tested

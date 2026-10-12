@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Files Object Storage"
+  short_description: "Handle large file and object-storage lifecycles safely"

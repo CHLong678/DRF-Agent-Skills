@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Auth Security"
+  short_description: "Review authentication, BOLA, tenant, and API security"

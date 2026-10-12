@@ -409,5 +409,23 @@
       "distributed-lock-risk",
       "fencing-or-simpler-primitive"
     ]
+  },
+  {
+    "id": "hard-intermittent-backend-bug",
+    "prompt": "A DRF endpoint intermittently returns the wrong state after a recent refactor. The failure crosses API, Celery, and database code, and two speculative fixes have already failed. Diagnose it before changing more code.",
+    "expected_primary": "backend-diagnosing-bugs",
+    "allowed_secondary": [
+      "drf-observability",
+      "drf-transactions-concurrency",
+      "drf-celery"
+    ],
+    "forbidden_primary": [
+      "drf-core"
+    ],
+    "rationale": "The root cause is unknown and prior speculative fixes failed, so the primary need is a tight reproducible feedback loop before selecting a domain fix.",
+    "required_reasoning_tags": [
+      "tight-feedback-loop",
+      "falsifiable-hypothesis"
+    ]
   }
 ]

@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Reconciliation Repair"
+  short_description: "Repair inconsistent production state safely"

@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Resilience Patterns"
+  short_description: "Bound dependency failures, retries, and overload"

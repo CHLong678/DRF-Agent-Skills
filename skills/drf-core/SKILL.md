@@ -127,3 +127,11 @@ For non-trivial endpoint changes, verify:
 ### Related skills
 - `drf-views`, `drf-serializers`, `drf-transactions-concurrency`
 - use the most specific related skill as primary once the problem is classified
+
+## Completion criteria
+
+Done when:
+- the owning layer/boundary for the behavior is explicit
+- the chosen structure fits existing project conventions
+- transaction and side-effect ownership are clear
+- the change has an appropriate verification path

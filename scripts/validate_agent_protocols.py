@@ -9,6 +9,36 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED = {
+    "SCOPE.md": (
+        "# Repository Scope",
+        "## A new skill/pattern belongs here when",
+        "## Prefer depth over skill count",
+        "## Failure-driven improvement",
+    ),
+    "AUTHORING/README.md": (
+        "# Skill Authoring System",
+        "INVOCATION.md",
+        "CONTEXT_POINTERS.md",
+        "COMPLETION_CRITERIA.md",
+    ),
+    "AUTHORING/INVOCATION.md": (
+        "# Skill Invocation",
+        "## Model-invoked",
+        "## User-invoked",
+        "## Cross-skill invocation",
+    ),
+    "AUTHORING/CONTEXT_POINTERS.md": (
+        "# Context Pointers",
+        "## Good pointer",
+        "## Leading words",
+        "## Environment is source of truth",
+    ),
+    "AUTHORING/COMPLETION_CRITERIA.md": (
+        "# Completion Criteria",
+        "## Rules",
+        "## Examples",
+        "## Anti-pattern",
+    ),
     "CODEBASE_INSPECTION.md": (
         "# Codebase Inspection Protocol",
         "## 1. Establish runtime and compatibility",
@@ -44,7 +74,8 @@ def main() -> int:
             continue
 
         text = path.read_text(encoding="utf-8")
-        if len(text.strip()) < 1000:
+        minimum = 500 if filename.startswith("AUTHORING/") else 1000
+        if len(text.strip()) < minimum:
             errors.append(f"{filename}: document is too shallow")
 
         for marker in markers:

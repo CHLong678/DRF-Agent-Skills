@@ -126,3 +126,11 @@ For list endpoints with potentially large datasets:
 ## Output contract
 
 For implementation guidance, state the chosen DRF abstraction/hook, why it fits, adjacent security/transaction concerns, and how to verify behavior.
+
+## Completion criteria
+
+Done when:
+- the chosen DRF abstraction/hook owns only the intended HTTP orchestration
+- authorization/queryset/serializer behavior is wired through the correct hooks
+- duplicated lifecycle code is avoided where a stable hook exists
+- endpoint behavior is verified through its public API

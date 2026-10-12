@@ -37,6 +37,7 @@ Use this file when more than one skill appears relevant.
 | slow django.setup/import graph | `django-startup-performance` | `django-architecture-enforcement` |
 | CI/static architecture/security invariant | `django-architecture-enforcement` | domain skill defining invariant |
 | general architecture/boundaries | `drf-core` | more specific skill after classification |
+| hard/intermittent backend bug with unknown root cause | `backend-diagnosing-bugs` | evidence-driven domain skill after repro |
 | timeout/retry/jitter/circuit-breaker/backpressure/load shedding | `drf-resilience-patterns` | `drf-observability`, `drf-celery` |
 | DB + message/event consistency, outbox, compensation, DLQ | `drf-event-driven-consistency` | `drf-celery`, `drf-transactions-concurrency` |
 | saturation, process concurrency, DB connection budget, replicas | `drf-capacity-scaling` | `drf-observability`, `postgresql-for-django` |
@@ -131,6 +132,11 @@ Use `django-migrations-production` for schema/data migration rollout.
 ### Distributed locking vs DB concurrency
 
 Distributed locking remains under `drf-transactions-concurrency`. Prefer constraints, conditional updates, row locks, idempotency, or partitioned ownership before a distributed lease.
+
+### Diagnosis vs observability
+
+Use `backend-diagnosing-bugs` when the problem is a hard/intermittent bug or prior speculative fixes failed and you need a tight reproducible feedback loop.
+Use `drf-observability` when the primary task is instrumenting/measuring an unknown production performance or reliability question.
 
 ## Stop rule
 

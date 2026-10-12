@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Permissions Authorization"
+  short_description: "Design list, object, create, and action authorization"

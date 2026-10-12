@@ -169,3 +169,11 @@ Request-local authorization context does not survive broker dispatch automatical
 
 ### Related skills
 - `drf-background-jobs-contracts`, `drf-transactions-concurrency`, `drf-bulk-large-data`
+
+## Completion criteria
+
+Done when:
+- producer, task, queue, and worker paths are known
+- retry/redelivery/idempotency behavior is explicit
+- transaction/on_commit and routing/ack semantics are checked
+- failure/recovery behavior is verified with the relevant harness or metrics

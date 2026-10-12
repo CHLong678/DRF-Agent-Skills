@@ -1,0 +1,3 @@
+interface:
+  display_name: "Django Admin Large Data"
+  short_description: "Keep Django admin usable on large datasets"

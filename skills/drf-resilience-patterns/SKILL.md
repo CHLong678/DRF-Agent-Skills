@@ -72,3 +72,11 @@ Simulate slow/failed dependencies, retry storms, queue saturation, and recovery.
 ## Deep reference
 
 - references/django-drf-adaptation.md
+
+## Completion criteria
+
+Done when:
+- deadline, timeout, and retry ownership are explicit
+- duplicate/idempotency implications are handled
+- overload/backpressure/fallback policy matches the failure mode
+- sustained failure and recovery behavior are tested or measured

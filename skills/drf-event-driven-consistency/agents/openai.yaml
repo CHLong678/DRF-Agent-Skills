@@ -1,0 +1,3 @@
+interface:
+  display_name: "DRF Event Consistency"
+  short_description: "Coordinate database state with events and messages"

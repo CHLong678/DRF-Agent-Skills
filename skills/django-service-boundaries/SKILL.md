@@ -17,6 +17,31 @@ Use an application/service function when logic spans multiple models, owns a tra
 
 For simple CRUD, normal DRF hooks and serializer/model behavior can be enough.
 
+## Deep modules
+
+Prefer **deep modules**: a small interface that gives callers substantial useful behavior while hiding coordination complexity.
+
+Evaluate a proposed boundary using:
+
+- **leverage** — how much useful behavior callers get per concept they must understand
+- **locality** — whether related change concentrates behind one interface
+- **seam** — whether the boundary is a stable place to test/use the behavior
+
+### Deletion test
+
+Ask what happens if the abstraction is removed.
+
+- If complexity disappears, the abstraction may be a shallow middleman.
+- If complexity spills into many callers, the boundary may be providing real locality/leverage.
+
+### Adapter test
+
+One adapter often means a hypothetical seam.
+
+A production adapter plus a meaningful test/local adapter, or multiple real implementations, makes the seam more concrete.
+
+Do not add ports/adapters only to satisfy an architecture diagram.
+
 ## Read/query boundaries
 
 Selectors/query services can help centralize complex reusable read paths, tenant scoping, and relation loading.
@@ -74,3 +99,11 @@ Do not create abstraction layers with only one trivial call and no meaningful is
 ## Deep reference
 
 - references/services-selectors-modules.md
+
+## Completion criteria
+
+Done when:
+- the business operation and all important callers are known
+- the proposed boundary increases leverage/locality rather than adding a shallow middleman
+- transaction and side-effect ownership are explicit
+- callers can be tested through a stable seam
