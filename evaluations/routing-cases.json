@@ -245,7 +245,7 @@
       "drf-celery"
     ],
     "forbidden_primary": [
-      "drf-celery"
+      "drf-background-jobs-contracts"
     ],
     "rationale": "The main decision is retry ownership, timeout budget, and overload amplification rather than Celery mechanics alone.",
     "required_reasoning_tags": [
@@ -262,7 +262,7 @@
       "drf-celery"
     ],
     "forbidden_primary": [
-      "drf-celery"
+      "drf-webhooks-integrations"
     ],
     "rationale": "The core problem is cross-system consistency and the dual-write failure window.",
     "required_reasoning_tags": [
