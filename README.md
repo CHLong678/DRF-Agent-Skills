@@ -291,6 +291,7 @@ The repository validates its own skill quality in CI:
 ```bash
 python scripts/validate_skills.py
 python scripts/validate_evaluations.py
+python scripts/validate_backend_patterns.py
 bash -n scripts/install-codex.sh
 bash -n scripts/install-antigravity.sh
 bash scripts/test_installers.sh
@@ -299,6 +300,7 @@ python -m compileall -q skills
 
 Checks include:
 
+- backend-pattern documents and source/adaptation notes are present and non-trivial
 - routing evaluation cases reference only real skills and contain no contradictory expectations
 - real-world scenarios contain required reasoning/routing sections
 - every skill directory contains `SKILL.md`

@@ -84,3 +84,69 @@ Missing test:
 ```
 
 List findings before optional suggestions. Avoid style-only comments unless requested.
+
+
+## Resilience / dependency failure
+
+```text
+Failure mode:
+Dependency/deadline:
+Retry owner:
+Idempotency protection:
+Timeout/backoff policy:
+Backpressure/load-shedding policy:
+Fallback/degradation:
+Failure-recovery verification:
+```
+
+## Event-driven consistency
+
+```text
+Source of truth:
+Cross-system consistency requirement:
+Dual-write failure window:
+Delivery/idempotency strategy:
+Ordering/version strategy:
+Outbox/relay design if needed:
+Retry/DLQ/replay:
+Reconciliation/verification:
+```
+
+## Capacity / scaling
+
+```text
+Observed saturation:
+Traffic/workload:
+Current process concurrency:
+Shared dependency budget:
+Scaling option:
+Consistency implications:
+Headroom/failure assumptions:
+Before/after verification:
+```
+
+## Service/module boundary
+
+```text
+Business operation:
+Current callers/interfaces:
+Current coupling/problem:
+Proposed boundary:
+Transaction/side-effect ownership:
+Why simpler local code is insufficient:
+Migration/refactor scope:
+Tests/verification:
+```
+
+## Production runtime
+
+```text
+Runtime roles:
+Critical configuration:
+Health/readiness contract:
+Shutdown/termination behavior:
+Proxy/trust boundary:
+Rolling-deploy compatibility:
+Observability:
+Deployment verification:
+```

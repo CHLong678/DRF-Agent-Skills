@@ -26,6 +26,9 @@ jobs:
       - name: Validate routing evaluations and scenarios
         run: python scripts/validate_evaluations.py
 
+      - name: Validate backend patterns
+        run: python scripts/validate_backend_patterns.py
+
       - name: Check shell syntax
         run: |
           bash -n scripts/install-codex.sh

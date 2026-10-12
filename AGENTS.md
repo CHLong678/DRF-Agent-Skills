@@ -59,3 +59,12 @@ Model-eval behavior:
 - `scripts/run_model_evals.py` runs real Codex/Antigravity CLI routing evaluations.
 - Do not optimize a skill solely to game one eval case; preserve the underlying routing invariant.
 - When changing routing semantics, update cases and required reasoning tags intentionally.
+
+
+Backend-pattern knowledge layer:
+
+- `backend-patterns/` contains framework-neutral backend patterns.
+- Read a backend-pattern file when the task needs pattern-level reasoning before framework adaptation.
+- A backend pattern is not automatically a recommendation; apply it only when the failure mode, invariant, and trade-offs justify it.
+- Prefer the smallest correct mechanism. Do not introduce distributed-system patterns for a problem solvable by one database transaction or ordinary DRF code.
+- Framework-specific implementation guidance in `skills/` remains authoritative for Django/DRF compatibility.

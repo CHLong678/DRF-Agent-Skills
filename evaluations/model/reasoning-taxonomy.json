@@ -23,6 +23,16 @@
     "openapi-runtime-parity",
     "startup-import-path",
     "version-check",
-    "verify-after-change"
+    "verify-after-change",
+    "retry-budget",
+    "backpressure",
+    "transactional-outbox",
+    "idempotent-consumer",
+    "capacity-saturation",
+    "connection-budget",
+    "read-replica-lag",
+    "service-boundary",
+    "runtime-readiness",
+    "graceful-shutdown"
   ]
 }

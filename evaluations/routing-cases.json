@@ -235,5 +235,108 @@
       "startup-import-path",
       "measure-first"
     ]
+  },
+  {
+    "id": "retry-storm-provider-outage",
+    "prompt": "A DRF endpoint calls a flaky provider. The HTTP client retries, the view retries, and the Celery fallback also retries, causing a retry storm during provider outages.",
+    "expected_primary": "drf-resilience-patterns",
+    "allowed_secondary": [
+      "drf-observability",
+      "drf-celery"
+    ],
+    "forbidden_primary": [
+      "drf-celery"
+    ],
+    "rationale": "The main decision is retry ownership, timeout budget, and overload amplification rather than Celery mechanics alone.",
+    "required_reasoning_tags": [
+      "retry-budget",
+      "backpressure"
+    ]
+  },
+  {
+    "id": "db-message-dual-write",
+    "prompt": "An order transaction commits in PostgreSQL and then publishes a message to RabbitMQ. Sometimes the process crashes after commit and the event is lost.",
+    "expected_primary": "drf-event-driven-consistency",
+    "allowed_secondary": [
+      "drf-transactions-concurrency",
+      "drf-celery"
+    ],
+    "forbidden_primary": [
+      "drf-celery"
+    ],
+    "rationale": "The core problem is cross-system consistency and the dual-write failure window.",
+    "required_reasoning_tags": [
+      "transactional-outbox",
+      "idempotent-consumer"
+    ]
+  },
+  {
+    "id": "db-connection-saturation",
+    "prompt": "We doubled Gunicorn workers and Celery concurrency, but PostgreSQL connections and latency spiked and the API became slower.",
+    "expected_primary": "drf-capacity-scaling",
+    "allowed_secondary": [
+      "drf-observability",
+      "postgresql-for-django",
+      "drf-celery"
+    ],
+    "forbidden_primary": [
+      "drf-orm-performance"
+    ],
+    "rationale": "The primary issue is capacity/concurrency budgeting across process roles and the shared database.",
+    "required_reasoning_tags": [
+      "capacity-saturation",
+      "connection-budget"
+    ]
+  },
+  {
+    "id": "read-replica-after-write",
+    "prompt": "We want to route DRF GET requests to a PostgreSQL read replica, but clients often GET immediately after POST and must see their new state.",
+    "expected_primary": "drf-capacity-scaling",
+    "allowed_secondary": [
+      "postgresql-for-django",
+      "drf-api-contracts"
+    ],
+    "forbidden_primary": [
+      "drf-caching"
+    ],
+    "rationale": "Replica scaling must be constrained by read-after-write consistency and replica lag.",
+    "required_reasoning_tags": [
+      "read-replica-lag"
+    ]
+  },
+  {
+    "id": "workflow-heavy-view",
+    "prompt": "A DRF ViewSet action updates four models, sends a provider request, schedules Celery work, and the same business operation is now needed from a management command.",
+    "expected_primary": "django-service-boundaries",
+    "allowed_secondary": [
+      "drf-core",
+      "drf-transactions-concurrency",
+      "drf-celery"
+    ],
+    "forbidden_primary": [
+      "drf-views"
+    ],
+    "rationale": "The main design question is extracting a reusable application/business workflow boundary.",
+    "required_reasoning_tags": [
+      "service-boundary"
+    ]
+  },
+  {
+    "id": "runtime-readiness-shutdown",
+    "prompt": "Our Kubernetes deployment sends traffic before Django is ready and Celery workers are killed during deploy while tasks are still running. Design health/readiness and graceful shutdown behavior.",
+    "expected_primary": "django-production-runtime",
+    "allowed_secondary": [
+      "drf-capacity-scaling",
+      "drf-celery",
+      "drf-observability"
+    ],
+    "forbidden_primary": [
+      "django-startup-performance"
+    ],
+    "rationale": "The problem is runtime process lifecycle and deployment behavior, not import-time startup performance.",
+    "required_reasoning_tags": [
+      "runtime-readiness",
+      "graceful-shutdown"
+    ]
   }
 ]

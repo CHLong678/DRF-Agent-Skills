@@ -40,3 +40,44 @@ Do not load:
 - `drf-code-review` during ordinary implementation unless review is the task
 - `drf-testing` before the implementation decision unless test design is central
 - PostgreSQL-specific skills when the project does not use PostgreSQL
+
+
+```text
+resilience failure / retry storm
+  primary: drf-resilience-patterns
+  secondary:
+    drf-observability for evidence
+    drf-celery when worker retry/queue mechanics matter
+```
+
+```text
+DB state + message/event consistency
+  primary: drf-event-driven-consistency
+  secondary:
+    drf-transactions-concurrency for local transaction
+    drf-celery for task/broker implementation
+```
+
+```text
+system saturation / capacity planning
+  primary: drf-capacity-scaling
+  secondary:
+    drf-observability when measurements are incomplete
+    postgresql-for-django for DB-specific limits
+```
+
+```text
+workflow-heavy view/serializer reused elsewhere
+  primary: django-service-boundaries
+  secondary:
+    drf-core
+    django-architecture-enforcement when boundaries should be enforced
+```
+
+```text
+health/readiness/shutdown/deploy process behavior
+  primary: django-production-runtime
+  secondary:
+    drf-capacity-scaling
+    drf-observability
+```

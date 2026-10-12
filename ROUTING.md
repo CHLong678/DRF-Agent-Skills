@@ -37,6 +37,11 @@ Use this file when more than one skill appears relevant.
 | slow django.setup/import graph | `django-startup-performance` | `django-architecture-enforcement` |
 | CI/static architecture/security invariant | `django-architecture-enforcement` | domain skill defining invariant |
 | general architecture/boundaries | `drf-core` | more specific skill after classification |
+| timeout/retry/jitter/circuit-breaker/backpressure/load shedding | `drf-resilience-patterns` | `drf-observability`, `drf-celery` |
+| DB + message/event consistency, outbox, compensation, DLQ | `drf-event-driven-consistency` | `drf-celery`, `drf-transactions-concurrency` |
+| saturation, process concurrency, DB connection budget, replicas | `drf-capacity-scaling` | `drf-observability`, `postgresql-for-django` |
+| service/selectors/module/facade/adapter boundaries | `django-service-boundaries` | `drf-core`, `django-architecture-enforcement` |
+| health/readiness, graceful shutdown, proxy trust, process roles | `django-production-runtime` | `drf-observability`, `drf-capacity-scaling` |
 
 ## Important overlap rules
 
@@ -74,6 +79,31 @@ Use `drf-celery` when work should be durable, retried, scheduled, or continue af
 
 Use `drf-bulk-large-data` first to decide sync/stream/background and chunking.
 Load `drf-celery` only when the chosen execution model uses workers.
+
+### Resilience vs Celery
+
+Use `drf-resilience-patterns` for timeout budgets, retry ownership, overload/backpressure, circuit breaking, and graceful degradation.
+Use `drf-celery` for task/worker/broker implementation details.
+
+### Event consistency vs transactions
+
+Use `drf-transactions-concurrency` when one database transaction can enforce the invariant.
+Use `drf-event-driven-consistency` when correctness spans a DB plus broker/provider/other system.
+
+### Capacity vs observability
+
+Use `drf-observability` when the saturated tier is unknown.
+Use `drf-capacity-scaling` after evidence shows a capacity/saturation/scaling decision is needed.
+
+### Service boundaries vs core
+
+Use `django-service-boundaries` when the question is where reusable business logic/module boundaries should live.
+Use `drf-core` for broader DRF architecture when no more specific boundary decision dominates.
+
+### Production runtime vs startup performance
+
+Use `django-production-runtime` for runtime process/deployment behavior.
+Use `django-startup-performance` when import/django.setup startup time is the problem.
 
 ## Stop rule
 
