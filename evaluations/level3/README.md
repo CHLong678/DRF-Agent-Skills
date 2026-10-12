@@ -29,6 +29,10 @@ Antigravity can be selected with --provider antigravity. Whether non-interactive
 - drf-n-plus-one — fix serializer-driven N+1 without changing output
 - tenant-list-leak — enforce tenant list isolation
 - idempotent-side-effect — make duplicate logical execution produce one business effect
+- patch-null-vs-omitted — preserve PATCH omission while allowing explicit null
+- cross-tenant-cache-leak — make cache keys tenant-safe without disabling caching
+- custom-action-permission-leak — keep custom actions inside authorized object visibility
+- side-effect-before-commit — dispatch side effects only after successful commit
 
 ## Scoring
 

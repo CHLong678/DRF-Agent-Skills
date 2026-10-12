@@ -26,6 +26,12 @@ jobs:
       - name: Validate invocation metadata
         run: python scripts/validate_invocation_metadata.py
 
+      - name: Validate source freshness
+        run: python scripts/validate_source_freshness.py
+
+      - name: Lint skill context budget
+        run: python scripts/lint_skill_context.py
+
       - name: Validate routing evaluations and scenarios
         run: python scripts/validate_evaluations.py
 
@@ -47,6 +53,9 @@ jobs:
       - name: Compile Python examples
         run: python -m compileall -q skills
 
+      - name: Compile Level-3 fixtures
+        run: python -m compileall -q evaluations/level3/fixtures
+
       - name: Compile validation and eval scripts
         run: python -m py_compile scripts/*.py
 
@@ -55,6 +64,9 @@ jobs:
 
       - name: Dry-run Level-3 eval harness
         run: python scripts/run_level3_evals.py --provider codex --dry-run >/dev/null
+
+      - name: Validate benchmark history CLI
+        run: python scripts/benchmark_history.py --help >/dev/null
 
       - name: Test installers
         run: bash scripts/test_installers.sh

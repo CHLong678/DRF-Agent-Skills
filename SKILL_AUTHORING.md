@@ -9,6 +9,8 @@ Each skill is self-contained:
 ```text
 skills/<skill-name>/
 ├── SKILL.md
+├── agents/
+│   └── openai.yaml
 ├── references/      # optional deep guidance
 └── examples/        # optional copyable examples
 ```
@@ -30,6 +32,12 @@ Rules:
 - `description` must be specific enough for skill discovery.
 - Include a clear `Use when ...` trigger.
 - Avoid generic descriptions such as "Django best practices."
+
+## Source freshness
+
+When a skill depends on version-sensitive framework/database/provider behavior, register its authoritative sources in `metadata/compatibility-sources.json` and keep the review date current.
+
+Community repositories may supply patterns, but official/provider documentation owns compatibility claims.
 
 ## Compatibility
 
@@ -63,6 +71,12 @@ User-invoked skills must set both:
 - `policy.allow_implicit_invocation: false` in `agents/openai.yaml`
 
 See `AUTHORING/INVOCATION.md`.
+
+## Context budget
+
+Descriptions are always-on routing context. Keep them concise and let `scripts/lint_skill_context.py` flag excessive length or suspicious overlap.
+
+Do not duplicate long pattern explanations across skills; link to the authoritative backend-pattern/reference instead.
 
 ## Context pointers
 
@@ -147,6 +161,8 @@ Before pushing:
 ```bash
 python scripts/validate_skills.py
 python scripts/validate_invocation_metadata.py
+python scripts/validate_source_freshness.py
+python scripts/lint_skill_context.py
 python scripts/validate_evaluations.py
 python scripts/validate_backend_patterns.py
 python scripts/validate_agent_protocols.py

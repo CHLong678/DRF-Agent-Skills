@@ -1,0 +1,15 @@
+{
+  "id": "side-effect-before-commit",
+  "title": "Dispatch side effect only after commit",
+  "primary_skill": "drf-transactions-concurrency",
+  "task_file": "TASK.md",
+  "requirements_file": "requirements.txt",
+  "verify_command": [
+    "python",
+    "manage.py",
+    "test",
+    "fixtureapp.tests",
+    "-v",
+    "1"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "cross-tenant-cache-leak",
+  "title": "Prevent cross-tenant cache leakage",
+  "primary_skill": "drf-caching",
+  "task_file": "TASK.md",
+  "requirements_file": "requirements.txt",
+  "verify_command": [
+    "python",
+    "manage.py",
+    "test",
+    "fixtureapp.tests",
+    "-v",
+    "1"
+  ]
+}

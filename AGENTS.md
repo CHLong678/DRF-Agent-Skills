@@ -103,3 +103,20 @@ Debugging discipline:
 - Build a tight red-capable feedback loop before speculative fixes.
 - Minimise the failing case, form falsifiable hypotheses, and gather discriminating evidence.
 - Preserve useful regression checks after the fix.
+
+
+Benchmark-driven improvement:
+
+- Raw Level-2/Level-3 model results live under gitignored `evaluations/results/`.
+- Record only intentionally selected benchmark snapshots under `evaluations/benchmarks/history/`.
+- Compare before/after snapshots with `scripts/benchmark_history.py`.
+- Treat newly failing cases as regressions even when aggregate average score improves.
+- Update skills from observed failures rather than optimizing prose for a single benchmark.
+
+
+Source freshness and context budget:
+
+- `metadata/compatibility-sources.json` tracks review freshness for version-sensitive recommendations.
+- Refresh official/provider documentation before relying on stale version-sensitive behavior.
+- Keep skill descriptions concise; they are always-on routing context.
+- Treat context-lint overlap warnings as prompts to review ownership, not automatic proof that two skills should be merged.

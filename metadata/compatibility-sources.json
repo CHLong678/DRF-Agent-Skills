@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "review_policy": {
+    "stale_after_months": 12
+  },
+  "defaults": {
+    "django_min": "3.2",
+    "celery_min": "5.0"
+  },
+  "skills": {
+    "drf-async": {
+      "django_min": "3.2",
+      "sources": [
+        {
+          "name": "Django async docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        },
+        {
+          "name": "DRF docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "drf-celery": {
+      "celery_min": "5.0",
+      "sources": [
+        {
+          "name": "Celery task docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        },
+        {
+          "name": "Celery worker docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "postgresql-for-django": {
+      "database": [
+        "postgresql"
+      ],
+      "sources": [
+        {
+          "name": "PostgreSQL EXPLAIN docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        },
+        {
+          "name": "PostgreSQL locking/index docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "django-migrations-production": {
+      "django_min": "3.2",
+      "database": [
+        "postgresql"
+      ],
+      "sources": [
+        {
+          "name": "Django migrations docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        },
+        {
+          "name": "Django PostgreSQL operations docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "drf-auth-security": {
+      "sources": [
+        {
+          "name": "DRF authentication/permissions docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "drf-api-contracts": {
+      "sources": [
+        {
+          "name": "DRF schema/versioning docs",
+          "authority": "official",
+          "reviewed": "2026-10"
+        },
+        {
+          "name": "HTTP semantics RFC guidance",
+          "authority": "standard",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "drf-webhooks-integrations": {
+      "sources": [
+        {
+          "name": "Provider webhook documentation",
+          "authority": "provider-specific",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "drf-files-object-storage": {
+      "sources": [
+        {
+          "name": "Target object-storage provider docs",
+          "authority": "provider-specific",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "backend-diagnosing-bugs": {
+      "sources": [
+        {
+          "name": "mattpocock/skills diagnosing-bugs",
+          "authority": "community-pattern",
+          "reviewed": "2026-10"
+        }
+      ]
+    },
+    "django-service-boundaries": {
+      "sources": [
+        {
+          "name": "HackSoftware/Django-Styleguide",
+          "authority": "community-pattern",
+          "reviewed": "2026-10"
+        },
+        {
+          "name": "Sairyss/domain-driven-hexagon",
+          "authority": "community-pattern",
+          "reviewed": "2026-10"
+        }
+      ]
+    }
+  }
+}

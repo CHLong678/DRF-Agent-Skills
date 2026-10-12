@@ -285,11 +285,15 @@ transaction scope, chunk size, retries, and API limits remain bounded.
 
 Level 3 measures whether an agent can actually fix a small broken Django/DRF project and make deterministic tests pass.
 
-Initial fixtures:
+Current fixtures:
 
 - `drf-n-plus-one`
 - `tenant-list-leak`
 - `idempotent-side-effect`
+- `patch-null-vs-omitted`
+- `cross-tenant-cache-leak`
+- `custom-action-permission-leak`
+- `side-effect-before-commit`
 
 Dry-run:
 
@@ -307,6 +311,28 @@ python scripts/run_level3_evals.py \
 ```
 
 See `evaluations/level3/README.md`.
+
+## Benchmark history
+
+Raw model-run reports remain under gitignored `evaluations/results/`.
+
+Selected runs can be normalized into reviewable snapshots under `evaluations/benchmarks/history/`:
+
+```bash
+python scripts/benchmark_history.py record \
+  --input evaluations/results/codex/<run>.json \
+  --output evaluations/benchmarks/history/codex-routing-2026-10.json
+```
+
+Compare two snapshots:
+
+```bash
+python scripts/benchmark_history.py compare \
+  --baseline <before.json> \
+  --current <after.json>
+```
+
+A comparison surfaces pass-rate/score changes, recovered cases, and regressions.
 
 ## Model-based evaluations
 
@@ -353,6 +379,14 @@ Routing cases define the expected primary skill, allowed secondary skills, forbi
 
 Agent response structure is standardized in `OUTPUT_CONTRACTS.md` for performance, security, concurrency, Celery/background processing, migrations, and code review.
 
+## Source freshness and context budget
+
+Version-sensitive source reviews are tracked in `metadata/compatibility-sources.json`.
+
+CI rejects stale source-review metadata beyond the configured freshness window.
+
+`scripts/lint_skill_context.py` also enforces concise skill descriptions and reports suspicious trigger/paragraph overlap so the skill catalog can grow without silently diluting routing attention.
+
 ## Repository validation
 
 The repository validates its own skill quality in CI:
@@ -360,6 +394,8 @@ The repository validates its own skill quality in CI:
 ```bash
 python scripts/validate_skills.py
 python scripts/validate_invocation_metadata.py
+python scripts/validate_source_freshness.py
+python scripts/lint_skill_context.py
 python scripts/validate_evaluations.py
 python scripts/validate_backend_patterns.py
 python scripts/validate_agent_protocols.py
@@ -382,6 +418,9 @@ Checks include:
 - model-invoked descriptions contain a concrete `Use when ...` discovery trigger
 - user/model invocation policy is consistent between `SKILL.md` and `agents/openai.yaml`
 - every skill contains observable completion criteria
+- version-sensitive source metadata is fresh
+- skill descriptions stay within the context-budget limits
+- selected benchmark snapshots can be compared for regression history
 - local `references/` and `examples/` links exist
 - Python examples compile
 - installer shell syntax is valid
