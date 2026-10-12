@@ -14,6 +14,16 @@ A pattern here is not automatically a recommendation. Every pattern has a contex
 - service-module-boundaries.md — application/service boundaries, selectors/read paths, modules, facades, ports/adapters
 - production-runtime.md — process boundaries, configuration, health/readiness, graceful shutdown, dependency failures
 
+- `caching-patterns.md` — cache-aside, write-through, SWR, stampede, key design, invalidation
+
+- `rate-limiting.md` — rate limits, concurrency limits, token bucket, cost-aware quotas, fairness
+
+- `distributed-locking.md` — leases, expiry hazards, fencing, when not to use a distributed lock
+
+- `failure-recovery.md` — reconciliation, repair jobs, replay, quarantine, resumable backfills
+
+- `file-object-storage.md` — direct/multipart uploads, object lifecycle, untrusted files, cleanup
+
 ## Use rules
 
 1. Start from the failure mode or invariant, not the pattern name.

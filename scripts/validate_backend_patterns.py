@@ -17,6 +17,11 @@ REQUIRED_FILES = {
     "capacity-scaling.md",
     "service-module-boundaries.md",
     "production-runtime.md",
+    "file-object-storage.md",
+    "failure-recovery.md",
+    "distributed-locking.md",
+    "rate-limiting.md",
+    "caching-patterns.md",
 }
 
 REQUIRED_TITLES = {
@@ -25,6 +30,11 @@ REQUIRED_TITLES = {
     "capacity-scaling.md": "# Capacity and Scaling Patterns",
     "service-module-boundaries.md": "# Service and Module Boundaries",
     "production-runtime.md": "# Production Runtime Patterns",
+    "file-object-storage.md": "# File and Object Storage Patterns",
+    "failure-recovery.md": "# Failure Recovery and Reconciliation",
+    "distributed-locking.md": "# Distributed Locking",
+    "rate-limiting.md": "# Rate Limiting and Quotas",
+    "caching-patterns.md": "# Caching Patterns",
 }
 
 

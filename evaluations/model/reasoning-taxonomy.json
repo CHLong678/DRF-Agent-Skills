@@ -33,6 +33,14 @@
     "read-replica-lag",
     "service-boundary",
     "runtime-readiness",
-    "graceful-shutdown"
+    "graceful-shutdown",
+    "cost-aware-quota",
+    "tenant-fairness",
+    "direct-object-upload",
+    "object-lifecycle",
+    "reconciliation-repair",
+    "resumable-repair",
+    "distributed-lock-risk",
+    "fencing-or-simpler-primitive"
   ]
 }

@@ -41,3 +41,10 @@ Adaptation: current versions target newer Django/Python than this repository bas
 ## Primary-authority rule
 
 For exact version-sensitive behavior, prefer official Django, DRF, Celery, PostgreSQL, RFC/protocol, and provider documentation.
+
+
+## Additional pattern grounding
+
+The caching, rate-limiting, distributed-locking, recovery, and object-storage documents are synthesized from the same system-design sources above and must be cross-checked against the exact cache, proxy, storage, broker, and database provider documentation used by the target project.
+
+For distributed locks, treat provider recipes as implementation details rather than proof that a lease enforces the business invariant. For file/object storage, use provider documentation for exact presigned URL, multipart upload, checksum, lifecycle, and consistency semantics.

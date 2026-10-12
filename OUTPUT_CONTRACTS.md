@@ -4,6 +4,21 @@ Output contracts make recommendations easier to verify and reduce vague "best pr
 
 Use the contract that matches the task. Do not mechanically print every field when it adds no value.
 
+## Change preflight
+
+For substantial changes, state when useful:
+
+```text
+Risk level:
+Invariant/contract:
+Observed evidence:
+Affected boundaries:
+Primary skill:
+Secondary skills only if required:
+Rollback/recovery concern:
+Verification:
+```
+
 ## Performance/debugging
 
 ```text
@@ -149,4 +164,44 @@ Proxy/trust boundary:
 Rolling-deploy compatibility:
 Observability:
 Deployment verification:
+```
+
+
+## Rate limit / quota
+
+```text
+Protected resource:
+Budget owner:
+Rate/concurrency/cost model:
+Counter/atomicity assumptions:
+Fairness policy:
+Rejection/error contract:
+Bypass/failure modes:
+Verification:
+```
+
+## File/object storage
+
+```text
+Object lifecycle:
+Upload/download path:
+Authorization/tenant scope:
+Size/content constraints:
+Metadata/storage consistency:
+Finalization/idempotency:
+Cleanup/reconciliation:
+Verification:
+```
+
+## Reconciliation / repair
+
+```text
+Invariant/source of truth:
+Candidate detection:
+Dry-run/report:
+Batch/resume strategy:
+Live-write concurrency:
+External side-effect safety:
+Audit/recovery:
+Convergence verification:
 ```

@@ -137,3 +137,7 @@ Check:
 ## Output contract
 
 For concurrency work, use the repository `OUTPUT_CONTRACTS.md` concurrency contract: invariant, competing operations, race window, chosen primitive, scope, and concurrency test.
+
+## Additional deep reference
+
+- `references/distributed-locking.md` — use only after simpler DB/idempotency mechanisms are ruled out.

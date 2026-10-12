@@ -89,6 +89,14 @@ Examples should:
 - avoid secrets/credentials
 - avoid requiring a newer Django/Celery API without a version note
 
+## Codebase and risk integration
+
+For implementation-oriented skills:
+
+- `Inspect first` should align with `CODEBASE_INSPECTION.md`.
+- Call out HIGH/CRITICAL failure modes when the skill commonly touches security, tenant isolation, money, migrations, concurrency, cross-system consistency, or irreversible repair.
+- Do not force a risk level for trivial/local changes.
+
 ## Evaluation coverage
 
 When a new skill overlaps an existing skill or changes routing behavior:
@@ -108,6 +116,9 @@ Before pushing:
 ```bash
 python scripts/validate_skills.py
 python scripts/validate_evaluations.py
+python scripts/validate_backend_patterns.py
+python scripts/validate_agent_protocols.py
+python scripts/validate_level3.py
 bash -n scripts/install-codex.sh
 bash -n scripts/install-antigravity.sh
 bash scripts/test_installers.sh

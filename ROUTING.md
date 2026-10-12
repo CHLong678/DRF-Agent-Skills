@@ -43,6 +43,14 @@ Use this file when more than one skill appears relevant.
 | service/selectors/module/facade/adapter boundaries | `django-service-boundaries` | `drf-core`, `django-architecture-enforcement` |
 | health/readiness, graceful shutdown, proxy trust, process roles | `django-production-runtime` | `drf-observability`, `drf-capacity-scaling` |
 
+| cost-aware rate/concurrency quota, tenant fairness | `drf-rate-limits-quotas` | `drf-capacity-scaling`, `drf-api-contracts` |
+
+| large file upload/download, presigned URL, object lifecycle | `drf-files-object-storage` | `drf-auth-security`, `drf-reconciliation-repair` |
+
+| reconciliation, repair, replay, poison records | `drf-reconciliation-repair` | `drf-event-driven-consistency`, `drf-bulk-large-data` |
+
+| distributed lease/Redis lock expiry/fencing | `drf-transactions-concurrency` | `postgresql-for-django` |
+
 ## Important overlap rules
 
 ### Security vs permissions
@@ -104,6 +112,25 @@ Use `drf-core` for broader DRF architecture when no more specific boundary decis
 
 Use `django-production-runtime` for runtime process/deployment behavior.
 Use `django-startup-performance` when import/django.setup startup time is the problem.
+
+### Rate limits vs resilience
+
+Use `drf-rate-limits-quotas` when admission/fairness/budget policy is the main decision.
+Use `drf-resilience-patterns` when dependency failure, retry, timeout, or overload recovery is the main decision.
+
+### File/object storage vs bulk data
+
+Use `drf-files-object-storage` for transfer/lifecycle/security of files or object-store objects.
+Use `drf-bulk-large-data` for large database/query/import/export processing.
+
+### Reconciliation vs migration
+
+Use `drf-reconciliation-repair` for live business-state inconsistency, replay, or repair.
+Use `django-migrations-production` for schema/data migration rollout.
+
+### Distributed locking vs DB concurrency
+
+Distributed locking remains under `drf-transactions-concurrency`. Prefer constraints, conditional updates, row locks, idempotency, or partitioned ownership before a distributed lease.
 
 ## Stop rule
 

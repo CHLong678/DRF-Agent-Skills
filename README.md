@@ -21,6 +21,17 @@ Agents must inspect the project's actual Django, DRF, Celery, Python, database, 
 
 See [`COMPATIBILITY.md`](COMPATIBILITY.md) for explicit version gates and fallbacks.
 
+## Agent operating protocol
+
+For non-trivial work, agents should:
+
+1. inspect the codebase with `CODEBASE_INSPECTION.md`
+2. classify change risk with `CHANGE_RISK.md`
+3. choose primary/secondary skills through `ROUTING.md`
+4. compose cross-boundary skills with `SKILL_COMPOSITION.md`
+5. use `OUTPUT_CONTRACTS.md` for a verifiable result
+6. verify behavior with tests/measurements appropriate to the risk
+
 ## Skill routing
 
 When more than one skill appears relevant, start with `ROUTING.md` or the `drf-skill-router` skill.
@@ -34,6 +45,14 @@ Routing rules:
 - stop loading adjacent skills once correctness can be decided safely
 
 Decision playbooks live under `playbooks/` for common production problems such as slow APIs, race conditions, Celery backlog, large datasets, permission leaks, and production migrations.
+
+## Backend pattern knowledge layer
+
+Framework-neutral backend knowledge lives in `backend-patterns/` and is adapted into Django/DRF-specific skills only when the pattern is justified by the actual failure mode.
+
+Current topics include resilience, event-driven consistency, capacity/scaling, service/module boundaries, production runtime, caching, rate limiting, distributed locking, failure recovery, and file/object storage.
+
+See `backend-patterns/SOURCES.md` for source/adaptation rules.
 
 ## Skills
 
@@ -63,6 +82,14 @@ Decision playbooks live under `playbooks/` for common production problems such a
 | `drf-webhooks-integrations` | Signature verification, duplicate/retry/out-of-order webhook handling, idempotent processing |
 | `drf-background-jobs-contracts` | 202 Accepted, durable job resources, progress/cancellation/result contracts |
 | `drf-permissions-authorization` | Deep list/object/create/custom-action authorization and permission design |
+| `django-production-runtime` | Runtime configuration, process roles, health/readiness, graceful shutdown, proxy/deploy boundaries |
+| `django-service-boundaries` | Services/selectors/module boundaries, facades, adapters, reusable business workflows |
+| `drf-capacity-scaling` | Saturation, process concurrency, DB connection budgets, replicas, capacity headroom |
+| `drf-event-driven-consistency` | Outbox, idempotent consumers, ordering, eventual consistency, compensation, DLQ |
+| `drf-resilience-patterns` | Timeouts, retries, jitter, backpressure, load shedding, graceful degradation |
+| `drf-rate-limits-quotas` | Rate/concurrency limits, cost-aware quotas, tenant fairness, 429 contracts |
+| `drf-files-object-storage` | Large uploads/downloads, presigned URLs, object lifecycle, untrusted file handling |
+| `drf-reconciliation-repair` | Reconciliation, repair/replay jobs, poison data, resumable production repair |
 
 ## Skill directory layout
 
@@ -239,6 +266,33 @@ Use drf-bulk-large-data to redesign this million-row import/export so memory,
 transaction scope, chunk size, retries, and API limits remain bounded.
 ```
 
+## Level-3 executable evaluations
+
+Level 3 measures whether an agent can actually fix a small broken Django/DRF project and make deterministic tests pass.
+
+Initial fixtures:
+
+- `drf-n-plus-one`
+- `tenant-list-leak`
+- `idempotent-side-effect`
+
+Dry-run:
+
+```bash
+python scripts/run_level3_evals.py --provider codex --dry-run
+```
+
+Run a real Codex fixture in a temporary workspace:
+
+```bash
+python scripts/run_level3_evals.py \
+  --provider codex \
+  --fixture drf-n-plus-one \
+  --setup
+```
+
+See `evaluations/level3/README.md`.
+
 ## Model-based evaluations
 
 The repository can run the routing suite against real agent CLIs.
@@ -292,6 +346,8 @@ The repository validates its own skill quality in CI:
 python scripts/validate_skills.py
 python scripts/validate_evaluations.py
 python scripts/validate_backend_patterns.py
+python scripts/validate_agent_protocols.py
+python scripts/validate_level3.py
 bash -n scripts/install-codex.sh
 bash -n scripts/install-antigravity.sh
 bash scripts/test_installers.sh
@@ -301,6 +357,8 @@ python -m compileall -q skills
 Checks include:
 
 - backend-pattern documents and source/adaptation notes are present and non-trivial
+- agent operating protocols are present and contain required inspection/risk/composition sections
+- Level-3 fixture manifests/tasks reference real skills and valid verification commands
 - routing evaluation cases reference only real skills and contain no contradictory expectations
 - real-world scenarios contain required reasoning/routing sections
 - every skill directory contains `SKILL.md`
@@ -330,6 +388,14 @@ Notable inspiration:
 - `prowler-cloud/prowler` (`skills/django-drf`)
 - `Jeffallan/claude-skills` (`skills/django-expert`)
 - `PostHog/posthog` (`.agents/skills/improving-drf-endpoints` plus production Django patterns)
+- `donnemartin/system-design-primer`
+- `ByteByteGoHq/system-design-101`
+- `binhnguyennus/awesome-scalability`
+- `HackSoftware/Django-Styleguide`
+- `Sairyss/domain-driven-hexagon`
+- `cookiecutter/cookiecutter-django`
+
+See `backend-patterns/SOURCES.md` for adaptation notes and the primary-authority rule.
 
 Authoritative references used for reliability-sensitive rules:
 

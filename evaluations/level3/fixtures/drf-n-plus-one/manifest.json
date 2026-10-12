@@ -1,0 +1,15 @@
+{
+  "id": "drf-n-plus-one",
+  "title": "Fix serializer-driven N+1",
+  "primary_skill": "drf-orm-performance",
+  "task_file": "TASK.md",
+  "requirements_file": "requirements.txt",
+  "verify_command": [
+    "python",
+    "manage.py",
+    "test",
+    "fixtureapp.tests",
+    "-v",
+    "1"
+  ]
+}

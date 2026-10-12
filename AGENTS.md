@@ -68,3 +68,20 @@ Backend-pattern knowledge layer:
 - A backend pattern is not automatically a recommendation; apply it only when the failure mode, invariant, and trade-offs justify it.
 - Prefer the smallest correct mechanism. Do not introduce distributed-system patterns for a problem solvable by one database transaction or ordinary DRF code.
 - Framework-specific implementation guidance in `skills/` remains authoritative for Django/DRF compatibility.
+
+
+Codebase inspection and risk:
+
+- Before substantial implementation, debugging, refactoring, or review, follow `CODEBASE_INSPECTION.md`.
+- Do not infer architecture or ownership from one file; trace callers, boundaries, tests, migrations, and version/runtime context.
+- Classify substantial changes with `CHANGE_RISK.md`.
+- HIGH/CRITICAL changes require an explicit invariant, failure scenario, verification plan, and recovery/rollback thinking.
+- Use `SKILL_COMPOSITION.md` for cross-boundary tasks, but stop loading skills when the real task no longer crosses that boundary.
+
+
+Level-3 executable evals:
+
+- `evaluations/level3/fixtures/` contains small intentionally broken Django/DRF projects.
+- `scripts/run_level3_evals.py` copies fixtures to temporary workspaces, invokes an agent, and runs deterministic verification commands.
+- Never weaken or delete fixture tests to make an eval pass.
+- Normal CI validates and dry-runs the Level-3 harness; real agent runs are explicit because they need authenticated model access.

@@ -1,0 +1,15 @@
+{
+  "id": "tenant-list-leak",
+  "title": "Fix tenant list isolation",
+  "primary_skill": "drf-permissions-authorization",
+  "task_file": "TASK.md",
+  "requirements_file": "requirements.txt",
+  "verify_command": [
+    "python",
+    "manage.py",
+    "test",
+    "fixtureapp.tests",
+    "-v",
+    "1"
+  ]
+}

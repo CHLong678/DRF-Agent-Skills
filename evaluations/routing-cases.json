@@ -338,5 +338,76 @@
       "runtime-readiness",
       "graceful-shutdown"
     ]
+  },
+  {
+    "id": "cost-aware-api-quota",
+    "prompt": "One DRF endpoint can scan 100 rows or 10 million rows depending on a requested date range. Requests-per-minute does not protect the database fairly across tenants.",
+    "expected_primary": "drf-rate-limits-quotas",
+    "allowed_secondary": [
+      "drf-capacity-scaling",
+      "drf-api-contracts",
+      "drf-auth-security"
+    ],
+    "forbidden_primary": [
+      "drf-resilience-patterns"
+    ],
+    "rationale": "The main decision is cost-aware admission/quota and tenant fairness, not retry/failure recovery.",
+    "required_reasoning_tags": [
+      "cost-aware-quota",
+      "tenant-fairness"
+    ]
+  },
+  {
+    "id": "large-direct-object-upload",
+    "prompt": "Clients upload multi-gigabyte files through the DRF web process and workers run out of memory. We use S3-compatible storage and need tenant-safe uploads and cleanup.",
+    "expected_primary": "drf-files-object-storage",
+    "allowed_secondary": [
+      "drf-auth-security",
+      "drf-reconciliation-repair",
+      "drf-background-jobs-contracts"
+    ],
+    "forbidden_primary": [
+      "drf-bulk-large-data"
+    ],
+    "rationale": "The primary problem is file/object-transfer lifecycle and authorization, not database bulk processing.",
+    "required_reasoning_tags": [
+      "direct-object-upload",
+      "object-lifecycle"
+    ]
+  },
+  {
+    "id": "provider-state-reconciliation",
+    "prompt": "After an outage, our provider reports 1,200 completed operations while local Django rows are still pending. We need a safe repair job that can be restarted.",
+    "expected_primary": "drf-reconciliation-repair",
+    "allowed_secondary": [
+      "drf-event-driven-consistency",
+      "drf-bulk-large-data",
+      "drf-transactions-concurrency"
+    ],
+    "forbidden_primary": [
+      "django-migrations-production"
+    ],
+    "rationale": "The task is repairing inconsistent live business state, not changing database schema.",
+    "required_reasoning_tags": [
+      "reconciliation-repair",
+      "resumable-repair"
+    ]
+  },
+  {
+    "id": "redis-lock-expiry",
+    "prompt": "Two workers coordinate with a Redis lock, but one pauses longer than the lease and continues writing after another worker acquires the lock. How should we protect the invariant?",
+    "expected_primary": "drf-transactions-concurrency",
+    "allowed_secondary": [
+      "postgresql-for-django",
+      "drf-event-driven-consistency"
+    ],
+    "forbidden_primary": [
+      "drf-caching"
+    ],
+    "rationale": "The core question is concurrency/invariant protection and distributed-lease expiry, not caching.",
+    "required_reasoning_tags": [
+      "distributed-lock-risk",
+      "fencing-or-simpler-primitive"
+    ]
   }
 ]
