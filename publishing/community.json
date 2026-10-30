@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "edition": "community",
+  "skills": [
+    "drf-core",
+    "drf-serializers",
+    "drf-views",
+    "drf-orm-performance",
+    "drf-testing",
+    "drf-code-review",
+    "drf-api-contracts"
+  ],
+  "root_files": [
+    "LICENSE"
+  ],
+  "description": "Explicit allowlist; all unspecified skills and internal files remain excluded."
+}

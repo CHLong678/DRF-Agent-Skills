@@ -64,3 +64,6 @@ jobs:
 
       - name: Test unified installer (all agents)
         run: python scripts/test_multi_agent_installer.py
+
+      - name: Validate seven-skill Community export
+        run: python scripts/test_community_export.py

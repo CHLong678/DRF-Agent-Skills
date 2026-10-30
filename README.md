@@ -9,6 +9,17 @@ Designed for reusable backend skills across:
 
 The repository intentionally avoids generic frontend, non-Django, and unrelated framework guidance. Each skill is narrow enough to load only when relevant.
 
+## Community and private editions
+
+This development checkout currently contains **34 skills**. The proposed **Community edition** exports only seven beginner-facing skills: `drf-core`, `drf-serializers`, `drf-views`, `drf-orm-performance`, `drf-testing`, `drf-code-review`, and `drf-api-contracts`.
+
+```bash
+python3 scripts/export-community.py --output /tmp/drf-agent-skills-community
+python3 scripts/test_community_export.py
+```
+
+The export includes only allowlisted files and has no inherited Git history. **This public development repo is not private**: its older commits already exposed the full catalog. Move the full repository to a confirmed private development destination before retiring/replacing the old public distribution. Read [the migration and publication guide](publishing/README.md).
+
 ## Compatibility
 
 Baseline target:
