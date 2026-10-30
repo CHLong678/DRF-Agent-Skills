@@ -167,9 +167,7 @@ python scripts/validate_evaluations.py
 python scripts/validate_backend_patterns.py
 python scripts/validate_agent_protocols.py
 python scripts/validate_level3.py
-bash -n scripts/install-codex.sh
-bash -n scripts/install-antigravity.sh
-bash scripts/test_installers.sh
+python scripts/test_multi_agent_installer.py
 python -m compileall -q skills
 ```
 

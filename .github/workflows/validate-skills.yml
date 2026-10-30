@@ -44,12 +44,6 @@ jobs:
       - name: Validate Level-3 fixtures
         run: python scripts/validate_level3.py
 
-      - name: Check shell syntax
-        run: |
-          bash -n scripts/install-codex.sh
-          bash -n scripts/install-antigravity.sh
-          bash -n scripts/test_installers.sh
-
       - name: Compile Python examples
         run: python -m compileall -q skills
 
@@ -68,8 +62,5 @@ jobs:
       - name: Validate benchmark history CLI
         run: python scripts/benchmark_history.py --help >/dev/null
 
-      - name: Test installers
-        run: bash scripts/test_installers.sh
-
-      - name: Test multi-agent installer
+      - name: Test unified installer (all agents)
         run: python scripts/test_multi_agent_installer.py

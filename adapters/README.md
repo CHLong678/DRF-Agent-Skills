@@ -1,8 +1,8 @@
-# Multi-agent adapters
+# Unified multi-agent installation
 
-One canonical knowledge source: `skills/<skill-name>/SKILL.md`. Each target agent gets a copy of the **whole skill directory**, including `references/`, `examples/` and `agents/openai.yaml`.
+All six coding agents install from the same canonical `skills/` tree using **one command**: `python3 scripts/install-agents.py`.
 
-## Supported install destinations
+## Supported directories
 
 | Agent | Project | Global |
 |---|---|---|
@@ -13,33 +13,43 @@ One canonical knowledge source: `skills/<skill-name>/SKILL.md`. Each target agen
 | GitHub Copilot | `.github/skills` | `~/.copilot/skills` |
 | OpenCode | `.opencode/skills` | `~/.config/opencode/skills` |
 
-The existing Antigravity CLI-specific installer `install-antigravity.sh --cli-global` remains available.
+Antigravity CLI additionally supports `--agent antigravity --scope cli-global`, targeting `~/.gemini/antigravity-cli/skills`.
 
-## Unified installer
+## Usage
 
-From the source repository:
+```bash
+# Preview before writing
+python3 scripts/install-agents.py --agent all --scope project --project /path/to/project --dry-run
 
-    python3 scripts/install-agents.py --agent claude-code --scope project --project /path/to/project
-    python3 scripts/install-agents.py --agent cursor --scope global
-    python3 scripts/install-agents.py --agent github-copilot --scope project --project /path/to/project
-    python3 scripts/install-agents.py --agent opencode --scope global
-    python3 scripts/install-agents.py --agent all --scope project --project /path/to/project --dry-run
+# All skills into selected agent's global directory
+python3 scripts/install-agents.py --agent codex --scope global
+python3 scripts/install-agents.py --agent cursor --scope global
 
-Use `--skill drf-celery` (repeatable) to install only selected skills. Default is all skills.
+# All skills to six agents, project-scoped
+python3 scripts/install-agents.py --agent all --scope project --project /path/to/project
 
-### Ownership safety
+# Only selected skills
+python3 scripts/install-agents.py --agent claude-code --scope project --project /path/to/project --skill drf-celery
+```
 
-Installer writes `.drf-agent-skills-install.json` into each installed directory. Existing unowned skill directories are **not overwritten** unless `--force` is specified. Dry-run changes nothing. Old `install-codex.sh` and `install-antigravity.sh` are kept for backward compatibility; those legacy scripts still overwrite matching directories.
+## Migration from legacy scripts
 
-### Invocation portability
+The separate `install-codex.sh` and `install-antigravity.sh` scripts have been retired. Replace them with:
 
-`agents/openai.yaml` is Codex-oriented metadata; other agents may ignore it. `disable-model-invocation: true` and implicit invocation behavior are **not guaranteed cross-agent**. For sensitive/manual workflow skills (`drf-skill-router`, `backend-agent-retro`), verify the target agent's own invocation and permission behavior; do not assume Codex policy applies to Claude Code, Cursor, Copilot, or OpenCode.
+- old `install-codex.sh` -> `python3 scripts/install-agents.py --agent codex --scope global`
+- old `install-antigravity.sh --project DIR` -> `python3 scripts/install-agents.py --agent antigravity --scope project --project DIR`
+- old `install-antigravity.sh --global` -> `python3 scripts/install-agents.py --agent antigravity --scope global`
+- old `install-antigravity.sh --cli-global` -> `python3 scripts/install-agents.py --agent antigravity --scope cli-global`
 
-Avoid installing the same skill into multiple directories searched by the same agent; precedence differs and duplicate discovery may be confusing. In particular, Cursor and OpenCode also discover some Claude/agent-compatible paths.
+The unified installer refuses to overwrite pre-existing unowned directories by default. Installations made with legacy scripts may not contain the new management marker; inspect the target and use `--force` only if intentionally replacing it. The installer does not delete legacy directories or search for duplicate skill installations.
 
-This integration tests installation paths and packaging. It does **not** assert real model invocation, correctness, or compatibility across every agent version.
+## Portability notes
 
-## Official references
+Each agent receives `SKILL.md`, references, examples and agent metadata from the same source. `agents/openai.yaml` is Codex-oriented; other agents may ignore it. Invocation settings such as `disable-model-invocation` are not guaranteed equivalent on every agent. Test actual discovery and invocation in your target agent independently.
+
+Do not install overlapping copies into multiple directories the same agent searches without checking precedence.
+
+## Official documentation
 
 - Claude Code: https://code.claude.com/docs/en/skills
 - Cursor: https://cursor.com/docs/skills

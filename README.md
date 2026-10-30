@@ -119,7 +119,7 @@ skills/<skill-name>/
     └── *.py
 ```
 
-The installers copy the entire skill directory recursively, so Codex and Antigravity receive references/examples together with the entrypoint.
+The unified installer copies every skill directory recursively for all supported agents, preserving references/examples with the entrypoint.
 
 ## Design principles
 
@@ -148,87 +148,36 @@ Key corrections include:
 - Long-running APIs should expose a stable job contract instead of leaking Celery implementation details.
 - Do not bulk-process huge datasets by materializing every row/object in memory; prefer bounded chunks, `iterator()`, set-based updates, streaming, or background jobs according to workload.
 
-## Multi-agent installation
+## Install for any supported agent
 
-The canonical `skills/` directory now supports **six coding agents** through a unified installer. Existing Codex and Antigravity scripts remain supported.
-
-```bash
-# Example: install into your Django project
-python3 scripts/install-agents.py --agent claude-code --scope project --project /path/to/django-project
-python3 scripts/install-agents.py --agent cursor --scope project --project /path/to/django-project
-python3 scripts/install-agents.py --agent github-copilot --scope project --project /path/to/django-project
-python3 scripts/install-agents.py --agent opencode --scope project --project /path/to/django-project
-
-# Install only one skill globally
-python3 scripts/install-agents.py --agent cursor --scope global --skill drf-celery
-
-# Preview all six integrations without writing files
-python3 scripts/install-agents.py --agent all --scope project --project /path/to/django-project --dry-run
-```
-
-Existing, unowned skill directories are protected by default; use `--force` only when replacement is intentional. Agent-specific invocation controls are **not universally portable**, so confirm auto-invocation behavior with each agent.
-
-See [multi-agent adapter documentation](adapters/README.md) for locations, limitations and official references.
-
-## Install for Codex
-
-### User scope
+One installer, one canonical source of skills, six supported agents:
 
 ```bash
 git clone https://github.com/CHLong678/DRF-Agent-Skills.git
 cd DRF-Agent-Skills
-./scripts/install-codex.sh
+
+# Preview installation in a Django project for every supported agent
+python3 scripts/install-agents.py --agent all --scope project --project /path/to/django-project --dry-run
+
+# Install all skills for a single agent
+python3 scripts/install-agents.py --agent codex --scope global
+python3 scripts/install-agents.py --agent antigravity --scope project --project /path/to/django-project
+python3 scripts/install-agents.py --agent claude-code --scope global
+python3 scripts/install-agents.py --agent cursor --scope global
+python3 scripts/install-agents.py --agent github-copilot --scope global
+python3 scripts/install-agents.py --agent opencode --scope global
+
+# Antigravity CLI-specific global directory
+python3 scripts/install-agents.py --agent antigravity --scope cli-global
+
+# Install just two skills, for all agents inside the project
+python3 scripts/install-agents.py --agent all --scope project --project /path/to/django-project \
+  --skill drf-celery --skill drf-transactions-concurrency
 ```
 
-This installs the skills into:
+The installer never replaces existing unowned skill directories unless you explicitly add `--force`; it supports repeatable `--skill` selectors and `--dry-run`. When migrating from the former dedicated Codex/Antigravity installers, their existing installations may be considered unowned, so review conflicts before choosing `--force`.
 
-```text
-~/.codex/skills/
-```
-
-You can also keep skills repo-scoped by copying selected directories into:
-
-```text
-<project>/.codex/skills/
-```
-
-### Manual install
-
-```bash
-mkdir -p ~/.codex/skills
-cp -R skills/drf-* ~/.codex/skills/
-```
-
-## Install for Antigravity
-
-For project-scoped skills, install under `.agents/skills/`.
-
-### Recommended: project scope
-
-From your DRF project root:
-
-```bash
-/path/to/DRF-Agent-Skills/scripts/install-antigravity.sh --project .
-```
-
-This installs to:
-
-```text
-<project>/.agents/skills/
-```
-
-### Global scope
-
-```bash
-./scripts/install-antigravity.sh --global
-```
-
-If your Antigravity installation uses another global directory, set `ANTIGRAVITY_SKILLS_DIR` explicitly:
-
-```bash
-ANTIGRAVITY_SKILLS_DIR="$HOME/.gemini/config/skills" \
-  ./scripts/install-antigravity.sh --global
-```
+See [installation paths, compatibility and limitations](adapters/README.md). Invocation/skill-discovery semantics are agent-specific; installing a skill does not prove that the model will invoke it.
 
 ## Use selected skills only
 

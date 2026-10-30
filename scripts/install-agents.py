@@ -26,12 +26,14 @@ AGENTS = {
 
 def destination(agent: str, scope: str, project: Path) -> Path:
     local, global_path = AGENTS[agent]
+    if scope == "cli-global":
+        return Path.home() / ".gemini/antigravity-cli/skills"
     return project.resolve() / local if scope == "project" else Path.home() / global_path
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--agent", choices=[*AGENTS, "all"], required=True)
-    parser.add_argument("--scope", choices=["project", "global"], default="project")
+    parser.add_argument("--scope", choices=["project", "global", "cli-global"], default="project", help="cli-global is Antigravity CLI only")
     parser.add_argument("--project", type=Path, default=Path.cwd())
     parser.add_argument("--skill", action="append", default=[], help="Install only named skill (repeatable)")
     parser.add_argument("--dry-run", action="store_true")
@@ -47,6 +49,8 @@ def main() -> int:
     selected = sorted(set(args.skill)) if args.skill else sorted(available)
     agents = sorted(AGENTS) if args.agent == "all" else [args.agent]
 
+    if args.scope == "cli-global" and args.agent != "antigravity":
+        parser.error("--scope cli-global requires --agent antigravity")
     if args.scope == "project" and not args.project.is_dir():
         parser.error("Project directory does not exist: " + str(args.project))
 

@@ -51,6 +51,11 @@ def main() -> None:
                 assert (target / ".drf-agent-skills-install.json").is_file()
                 run(*args, env=env)  # idempotent owned update
 
+        cli_args = ["--agent", "antigravity", "--scope", "cli-global", "--skill", "drf-celery"]
+        run(*cli_args, env=env)
+        assert (home / ".gemini/antigravity-cli/skills/drf-celery/SKILL.md").is_file()
+        run("--agent", "cursor", "--scope", "cli-global", env=env, expect=2)
+
         unowned = project / ".cursor/skills/drf-testing"
         unowned.mkdir(parents=True)
         (unowned / "user.txt").write_text("preserve", encoding="utf-8")
@@ -66,7 +71,7 @@ def main() -> None:
             "--skill", "drf-orm-performance", env=env)
         for agent, (project_path, _) in AGENTS.items():
             assert (project / project_path / "drf-orm-performance/SKILL.md").is_file(), agent
-    print("Multi-agent installer tests passed for six agents.")
+    print("Unified installer tests passed for six agents plus Antigravity CLI.")
 
 if __name__ == "__main__":
     main()
