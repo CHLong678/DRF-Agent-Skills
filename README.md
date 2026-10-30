@@ -2,10 +2,10 @@
 
 A focused collection of Agent Skills for building and reviewing production Django REST Framework code.
 
-Designed specifically for:
+Designed for reusable backend skills across:
 
-- OpenAI Codex
-- Google Antigravity
+- OpenAI Codex and Google Antigravity
+- Claude Code, Cursor, GitHub Copilot, and OpenCode
 
 The repository intentionally avoids generic frontend, non-Django, and unrelated framework guidance. Each skill is narrow enough to load only when relevant.
 
@@ -147,6 +147,28 @@ Key corrections include:
 - Webhook endpoints must assume duplicate, retry, and out-of-order delivery and verify provider authenticity before processing.
 - Long-running APIs should expose a stable job contract instead of leaking Celery implementation details.
 - Do not bulk-process huge datasets by materializing every row/object in memory; prefer bounded chunks, `iterator()`, set-based updates, streaming, or background jobs according to workload.
+
+## Multi-agent installation
+
+The canonical `skills/` directory now supports **six coding agents** through a unified installer. Existing Codex and Antigravity scripts remain supported.
+
+```bash
+# Example: install into your Django project
+python3 scripts/install-agents.py --agent claude-code --scope project --project /path/to/django-project
+python3 scripts/install-agents.py --agent cursor --scope project --project /path/to/django-project
+python3 scripts/install-agents.py --agent github-copilot --scope project --project /path/to/django-project
+python3 scripts/install-agents.py --agent opencode --scope project --project /path/to/django-project
+
+# Install only one skill globally
+python3 scripts/install-agents.py --agent cursor --scope global --skill drf-celery
+
+# Preview all six integrations without writing files
+python3 scripts/install-agents.py --agent all --scope project --project /path/to/django-project --dry-run
+```
+
+Existing, unowned skill directories are protected by default; use `--force` only when replacement is intentional. Agent-specific invocation controls are **not universally portable**, so confirm auto-invocation behavior with each agent.
+
+See [multi-agent adapter documentation](adapters/README.md) for locations, limitations and official references.
 
 ## Install for Codex
 

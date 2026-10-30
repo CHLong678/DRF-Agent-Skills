@@ -70,3 +70,6 @@ jobs:
 
       - name: Test installers
         run: bash scripts/test_installers.sh
+
+      - name: Test multi-agent installer
+        run: python scripts/test_multi_agent_installer.py
